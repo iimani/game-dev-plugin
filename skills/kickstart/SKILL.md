@@ -1,6 +1,6 @@
 ---
 name: kickstart
-description: Start a new game, or bring an existing one onto the team: walks the owner through vision, platform, core loop, art style and sound, then sets up the design guideline, method docs, team files, CLAUDE.md and the first plan. Use when the user starts a new game project or asks to set up the game-dev structure in a repo.
+description: Start a new game: walks the owner through vision, platform, core loop, art style and sound, then sets up the design guideline, method docs, team files, CLAUDE.md and the first plan. Use when the user starts a new game project or asks to set up the game-dev structure in a repo.
 ---
 
 # Kickstart a game
@@ -16,54 +16,69 @@ the game changes them freely, and they never update from the plugin.
 - **Don't fill silence with design.** A section with no decision says what's open. It doesn't get invented content.
 - **The repo is the source of truth.** `docs/design/` is plain markdown, edited in the same PR as the change. Nothing is
   generated from anywhere else, so keeping the design current costs no sync step.
-- **Existing repo:** read what's there first. Never overwrite a doc: map it onto the structure and say what's missing.
+- **Existing game:** use the `migrate` skill instead. An empty repo, or one with only a rough idea, stays here.
 
 ## Stages
 
 | Stage | Settle | Writes to | Gate |
 |---|---|---|---|
 | 1. Look | New or existing repo, what's already decided | | |
-| 2. Vision | One sentence, the feelings, three to five pillars, anti-goals, session length, how it's sold | `docs/design/README.md` | the owner |
-| 3. Platform | Platform, engine, language, input, what can be tested without the engine | `docs/design/tech.md` | the owner |
-| 4. Core loop | What the player does minute to minute, per session and over the whole game | `docs/design/run.md`, `docs/design/controls.md` | the owner |
-| 5. Art style | Run the `choose-art-style` skill | `docs/design/art.md`, `docs/process/art-style.md` | the owner |
-| 6. Sound | How much sound matters, its tool (see the art style method's tool table), whether it can carry information alone | `docs/design/audio.md` | the owner |
-| 7. Methods | Which design methods this game needs (below) | `docs/process/` | the owner |
-| 8. Tracking | Where tasks live, the task key, and how a task moves | `CLAUDE.md` | the owner |
-| 9. Scaffold | Everything below | the repo | |
-| 10. First plan | Run the `plan-phase` skill for phase 1, a vertical slice | `docs/design/plan.md` | the owner |
+| 2. Scaffold | Copy the structure in first, so every later stage has its file (below) | the repo | |
+| 3. Vision | One sentence, the feelings, three to five pillars, anti-goals, session length, how it's sold | `docs/design/README.md` | the owner |
+| 4. Platform | Platform, engine, language, input, what can be tested without the engine | `docs/design/tech.md` | the owner |
+| 5. Core loop | What the player does minute to minute, per session and over the whole game | `docs/design/run.md`, `docs/design/controls.md` | the owner |
+| 6. Art style | Run the `choose-art-style` skill | `docs/design/art.md`, `docs/team/game-artist.md` | the owner |
+| 7. Sound | How much sound matters, its tool (see the art style method's tool table), whether it can carry information alone | `docs/design/audio.md` | the owner |
+| 8. Methods | Which design methods this game needs (below) | `docs/process/` | the owner |
+| 9. Tracking | Where tasks live, the task key, and how a task moves | `CLAUDE.md` | the owner |
+| 10. Team | Which roles this game uses, and who does what (below) | `docs/team/`, `CLAUDE.md` | |
+| 11. First plan | Run the `plan-phase` skill for phase 1, a vertical slice | `docs/design/plan.md` | the owner |
 
 ## A design document, if the owner wants one
 
 Reading and commenting on a whole design is easier in a document than in a repo. If the owner wants that, and a docs
-connector is available, draft stages 2 to 6 in one document and review it there. It's a design step, not a second home:
-1. At stage 9, import the approved document into `docs/design/`, once.
+connector is available, draft stages 3 to 7 in one document and review it there. It's a design step, not a second home:
+1. Before stage 8, import the approved document into `docs/design/`, once.
 2. Mark the document as frozen at its top: it's a record of that design, and the repo holds the current one.
 3. Nothing flows back. Later, a session can publish a page from the repo if the owner asks. That page is one-way, and
    nobody edits it.
 
 Do the same for a big design phase later on. Images go in the repo, so `docs/design/` can link them.
 
-## Stage 7: choosing methods
+## Stage 2: the scaffold
+
+1. **Design guideline.** Copy `templates/design/` to `docs/design/`. Later stages fill it, or import the design document.
+   Every item carries a label: **[Built]**, **[Approved]**, **[Draft]** or **[Proposal]**. What the owner ruled at a gate
+   is **[Approved]**.
+2. **Methods.** Copy all of `templates/process/` to `docs/process/`. Stage 8 removes what the game doesn't need.
+3. **Team.** Copy `templates/team/README.md` and `templates/team/playtester-controls.md` to `docs/team/`.
+4. **Art and plans.** Create `docs/art/catalogue.md` with a title, and `docs/plans/`. `templates/plan-file.md` is the
+   pattern for a plan.
+5. **CLAUDE.md.** Write it from `templates/CLAUDE.md`, now, so roles have it from their first run. Later stages fill it.
+   Keep it to what every session needs.
+6. **Checks.** Copy `${CLAUDE_PLUGIN_ROOT}/scripts/check-team.py` and `check-design.py` to the project's `scripts/`, and
+   run them from its test script. A path that's named but not built yet goes in the script's `PLANNED` set.
+7. **Plugin.** Add the plugin to the repo's `.claude/settings.json`, if the owner wants it declared there.
+
+## Stage 8: choosing methods
 
 `templates/process/README.md` lists them all, and each template's first lines say when to use it and which genres can
-skip it. Always copy the index, `art-style.md`, `teaching-and-text.md` and `sound-design.md`. Offer the rest by what the
-core loop needs: a puzzle game needs `puzzle-design.md`, a run-based game needs `procgen-design.md`, and so on. Fill each
-`<fill: ...>` you can, and leave the others as open questions in the method.
+skip it. Always keep the index, `art-style.md`, `teaching-and-text.md` and `sound-design.md`. Keep the rest by what the
+core loop needs: a puzzle game needs `puzzle-design.md`, a run-based game needs `procgen-design.md`, and so on. Delete the
+others, with their rows in the index. Fill each `<fill: ...>` you can, and leave the others as open questions.
 
-## Stage 9: the scaffold
+## Stage 10: the team
 
-1. **Design guideline.** Copy `templates/design/` to `docs/design/`. Fill it from stages 2 to 6, or import the design
-   document. Every item carries a
-   label: **[Built]**, **[Approved]**, **[Draft]** or **[Proposal]**. What the owner ruled at a gate is **[Approved]**.
-2. **Methods.** Copy the chosen files from `templates/process/` to `docs/process/`.
-3. **Team.** Copy `templates/team/README.md` to `docs/team/README.md`. For each role in use, write `docs/team/<role>.md`
-   from `templates/team/role-template.md`. A role file points to docs, and never copies them.
-4. **CLAUDE.md.** Write it from `templates/CLAUDE.md`, and fill it from the design. Keep it to what every session needs.
-5. **Plans.** Create `docs/plans/`. `templates/plan-file.md` is the pattern.
-6. **Checks.** Copy `${CLAUDE_PLUGIN_ROOT}/scripts/check-team.py` and `check-design.py` to the project's `scripts/`, and
-   run them from its test script.
-7. **Plugin.** Add the plugin to the repo's `.claude/settings.json`, if the owner wants it declared there.
+**This stage decides if the team gets used.** A session does the work itself unless it's told otherwise, so the setup has
+to make delegation the default.
+
+1. Decide which roles this game uses. Delete the other roles' rows from `docs/team/README.md`, in both tables.
+2. Write `docs/team/<role>.md` for each role, from `templates/team/role-template.md`. A role file points to docs, and
+   never copies them. Write `docs/team/playtester-controls.md` too: it lists every key the game accepts or prompts for,
+   including between levels and on menus.
+3. Fill the "Who does what" table in `docs/team/README.md` with this game's own kinds of work.
+4. Keep the "Agents" section of `CLAUDE.md` as the template has it. Add nothing that says the session keeps the design:
+   that line is what sends the work back to the session.
 
 Then run both checks. Leave the commit to the owner's git flow: use a branch and a PR, never the main branch.
 

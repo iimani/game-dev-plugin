@@ -4,8 +4,8 @@ Status (<date>): **<what's built and what's next>.** The design is approved: <th
 marked *(builder's call)* are mine.
 
 <N> tasks, each its own PR, in order. Each is test-first, proved by a tool or a test, the full check green, and, if the
-player sees it, checked by running the game. Implementation goes to the `developer` agent with this plan, the task's
-section, its files and how to run it. The calling session keeps the tracker, git, the PRs and the review.
+player sees it, checked by running the game. Each step goes to the role it names, with this plan, the task's section, its
+files and how to run it. The calling session keeps the tracker, git, the PRs and the review.
 
 ## Task (to paste)
 
@@ -20,6 +20,7 @@ section, its files and how to run it. The calling session keeps the tracker, git
 - **Files:** <the files it touches>.
 - **Proof:** <what a tool or a person checks>.
 - **Role:** <which agent carries it out>.
+- **Close:** <the items the session marks Built, and the catalogues it updates>.
 
 ## Rulings
 

@@ -71,7 +71,7 @@ construction. A reject-and-redraw check is a backstop, and its rate goes in the 
 
 - A bot that drives the real player controller crosses the level with the player's moves.
 - A section that must need a move is also proved impossible without it.
-- A solver proves any puzzle solvable and that it needs reasoning (`puzzle-design.md`).
+- A solver proves any puzzle solvable, that it needs reasoning, and that it needs its rule (`puzzle-design.md`).
 - A content test fails if generated output drifts from its source.
 - A level's time is estimated from the bot's route, and added to the area's budget.
 

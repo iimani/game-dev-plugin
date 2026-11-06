@@ -1,6 +1,6 @@
 ---
 name: developer
-description: Implements a planned game task (rules, generation, content, scenes) test-first, proves it with the project's tools, and shows it running. Give it the task's approved plan, the files involved, and what done looks like. It writes code; the calling session keeps the design, the board, git and the PR.
+description: Implements a planned game task (rules, generation, content, scenes) test-first, proves it with the project's tools, and shows it running. Give it the task's approved plan, the files involved, and what done looks like. It writes code; the calling session keeps the decisions, the board, git and the PR. Use it proactively for this work, in place of doing it in the main session.
 tools: Read, Write, Edit, Bash, Glob, Grep, mcp__Claude_Code_iOS_Simulator__control
 model: inherit
 ---

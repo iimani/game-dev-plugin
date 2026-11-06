@@ -48,7 +48,8 @@ gives the same run. That's how bugs reproduce. *(For any game with generated con
 
 - `docs/design/` is the source of truth, edited by hand. Any design document or published page is a one-way copy.
 - Every item carries **[Built]**, **[Approved]**, **[Draft]** or **[Proposal]**.
-- A PR that builds an item marks it **[Built, <KEY>-N]** and updates `docs/design/status.md`.
+- A PR that builds an item marks it **[Built, <KEY>-N]** and updates `docs/design/status.md`. The session does this when
+  it closes the task, from what the role reports.
 - A PR that changes a rule, a number or a look updates the section that holds it.
 - A ruling by the owner changes the item's label and quotes the ruling where the item lives.
 
@@ -61,8 +62,17 @@ gives the same run. That's how bugs reproduce. *(For any game with generated con
 
 ## Agents
 
-Delegated work goes to the `game-dev` plugin's agents. `docs/team/README.md` lists them, and `docs/team/<role>.md` holds
-what each needs for this game. The calling session keeps the design, the tracker, git, the PR and the review.
+**Delegate by default.** Work goes to the `game-dev` plugin's role agents (`game-dev:<role>`), not to the session. Before
+you start a piece of work, check "Who does what" in `docs/team/README.md`, and say which role takes it. Design work
+counts, not only code: blocking out a level, drawing an asset, writing a line.
+
+Do it yourself only if it's a handful of tool calls, or no role fits, and say so in one line.
+
+The session keeps the decisions: talking with the owner, the gates, the plan, the tracker, git, the PR, the review, and
+updating the guideline. It doesn't keep the making. A role stops at an owner's gate and hands back what the session needs
+to ask.
+
+Before a PR is marked ready, run `game-dev:code-reviewer` and `game-dev:design-guardian`.
 
 ## Playtesting
 

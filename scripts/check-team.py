@@ -10,6 +10,8 @@ import re
 import sys
 
 root = pathlib.Path(__file__).resolve().parent.parent
+# Paths a team file names that aren't built yet. Remove an entry once the path exists.
+PLANNED = set()
 team = root / "docs/team"
 index = (team / "README.md").read_text()
 
@@ -19,7 +21,7 @@ for path in sorted(team.glob("*.md")):
         problems.append(f"docs/team/{path.name} has no row in docs/team/README.md")
     for span in re.findall(r"`([^`\n]+)`", path.read_text()):
         for token in span.split():
-            if "/" not in token or re.search(r"[<>*…:{}$]", token) or token.startswith(("~", "-", "http")):
+            if token in PLANNED or "/" not in token or re.search(r"[<>*…:{}$]", token) or token.startswith(("~", "-", "http")):
                 continue
             if (root / token.split("/")[0]).exists() and not (root / token).exists():
                 problems.append(f"docs/team/{path.name} names `{token}`, which isn't in the repo")

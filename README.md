@@ -8,7 +8,8 @@ gates, and a kickstart that sets up its design, planning and documentation.
 - **This plugin** holds how each job is done on any game. It names no game, engine or art tool.
 - **The game's repo** holds what's true of that game: `docs/design/`, `docs/process/`, `docs/team/` and `CLAUDE.md`.
 
-Every role reads `docs/team/README.md` and `docs/team/<role>.md` first, and those win. Templates are copied into a game
+Delegation is the default: a game's `CLAUDE.md` tells sessions to hand work to the roles, using "Who does what" in
+`docs/team/README.md`. Every role reads that file and `docs/team/<role>.md` first, and those win. Templates are copied into a game
 at kickstart and belong to it from then on.
 
 ## What's in it
@@ -17,9 +18,11 @@ at kickstart and belong to it from then on.
 `narrative-writer`, `balance-analyst`, `code-reviewer`, `design-guardian`, `playtester`.
 
 **Skills:**
-- `kickstart` sets up a game: vision, platform, core loop, art style, sound, methods, then the scaffold and first plan.
+- `kickstart` starts a new game: the scaffold, vision, platform, core loop, art style, sound, methods, team and first plan.
+- `migrate` brings an existing game onto this setup, without losing anything.
 - `choose-art-style` picks a style and tool by making the same test asset in each and judging it on the real screen.
 - `plan-phase` plans the next phase, writes its plan file and cuts tasks.
+- `help` shows the commands and roles, and says what to do next in this repo.
 
 **The method:**
 - A design guideline in the repo that doubles as the implementation tracker. Every item is Built, Approved, Draft or
@@ -36,7 +39,9 @@ claude plugin marketplace add iimani/game-dev-plugin
 claude plugin install game-dev@game-dev-plugin
 ```
 
-Then, in a game's repo, ask Claude to kick off the game, or run `/game-dev:kickstart`.
+Keep it at user scope, as above: a project-scope install is tied to one folder.
+
+Then run `/game-dev:help` in a game's repo. It says whether to kick off a new game or migrate an existing one.
 
 Plugins declared in a repo's settings don't load in cloud sessions. Use a local session for this team.
 
@@ -53,3 +58,7 @@ materials), [chirp](https://github.com/uilianks/chirp) (sound).
 python3 scripts/check-plugin.py
 claude plugin validate .
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).

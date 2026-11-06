@@ -26,10 +26,20 @@ The design guideline is the tracker. A plan comes from it, and goes back into it
    call and what it costs if wrong.
 3. Set the phase's goal and its exit: one sentence a person can check. The first phase of a new game is a vertical
    slice: one short stretch of the real game, with its core loop, proved and playable.
-4. Write the plan file from `${CLAUDE_PLUGIN_ROOT}/skills/kickstart/templates/plan-file.md`. Each step is a PR with What,
+4. Pick a role for every step, from "Who does what" in `docs/team/README.md`, design steps included. Then write the plan
+   file from `${CLAUDE_PLUGIN_ROOT}/skills/kickstart/templates/plan-file.md`. Each step is a PR with What,
    Tests, Files and Proof. Name which role carries it out (`docs/team/README.md`).
 5. Update `docs/design/plan.md`: the phase, its exit, and "Where we are".
 6. Stop for the owner's approval. Then cut the tasks, in the tracker named in CLAUDE.md.
+
+## Close a task
+
+A role reports what it built, and the session updates the design. When a task's work is done, and before its PR is marked
+ready, the session:
+1. Marks each item **[Built, KEY-N]** where it lives, and updates `docs/design/status.md` and "Where we are" in `plan.md`.
+2. Adds anything built without a ruling to `docs/design/decisions.md`, or records it as a *(builder's call)*.
+3. Updates the catalogues the task touched.
+4. Runs `game-dev:design-guardian`, which checks all of the above.
 
 ## Keep it honest
 

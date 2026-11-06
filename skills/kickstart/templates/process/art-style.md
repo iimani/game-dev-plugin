@@ -40,7 +40,7 @@ accepts that an agent can't make them.
 | 1. Brief | The feelings, the screen size, the camera, the engine, what must read at a glance | the vision, `tech.md` | |
 | 2. References | Three to five looks in words: what each gets right for this game | | the owner picks two or three |
 | 3. Fit | For each pick: which tool, what it costs across the whole game, what it can't do | the table above | |
-| 4. Test asset | The same scene in each pick: the player, a hazard, a goal, a floor, on the real screen size | the tools | |
+| 4. Test asset | The same scene in each pick: the player, a hazard, a goal, a floor, on the real screen size. `game-artist` makes them, briefed as a style test | the tools | |
 | 5. Judge | Each test at game size, in the game's light, with a mock HUD. Say plainly what's weak in each | the renders | the owner rules |
 | 6. Rules | The pixel scale or shape language, palette, light, what's reserved for hazards and goals | `art.md` | the owner |
 | 7. Contract | The asset contract: names, sizes, anchors, states, layers. A build that checks the rules | `docs/art/catalogue.md` | |
