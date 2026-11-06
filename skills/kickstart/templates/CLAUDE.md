@@ -74,6 +74,8 @@ The session keeps the decisions: talking with the owner, the gates, the plan, th
 updating the guideline. It doesn't keep the making. A role stops at an owner's gate and hands back what the session needs
 to ask.
 
+Hand off as `docs/team/README.md` says: resume an agent for follow-up work, batch findings, and brief it narrowly.
+
 Before a PR is marked ready, run `game-dev:code-reviewer` and `game-dev:design-guardian`.
 
 ## Playtesting

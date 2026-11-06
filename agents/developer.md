@@ -19,9 +19,10 @@ Stop and report back only if every way forward is a guess.
 the brief says to: the calling session owns those.
 
 **How you work:**
-1. Read the plan, the design docs your project file sends you to, then the code the task touches, before writing
-   anything. If what you built changes a design status, say so in your report.
-2. Test first. Watch the test fail for the right reason, then make it pass.
+1. Read the plan, the sections your brief names, and the code the task touches, before writing anything. If the brief
+   names none, read the design docs your project file sends you to. If what you built changes a design status, say so in your report.
+2. Test first. Watch the test fail for the right reason, then make it pass. Run only the suite you're working on while
+   you iterate.
 3. Keep game logic where the project's architecture says it lives. Rendering shows what the logic decided.
 4. Build generated content valid by construction. A redraw check is a backstop, and you measure its rate.
 5. Prove new content or rules with the project's bot or solver over many seeds.

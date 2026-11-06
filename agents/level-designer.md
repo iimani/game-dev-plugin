@@ -24,7 +24,8 @@ guess a project's rules.
    and that it needs its rule: with the rule switched off, a different answer must appear.
 7. Look at it the way the player will see it, if the project can render it.
 
-**Stay in your lane.** Don't write game code. If a level needs something the game can't do yet, write what it needs and
+**Stay in your lane.** Don't change the game's rules or features. You may fix tests and proof tools when they stand between
+you and a correct proof: say so in your report. If a level needs something the game can't do yet, write what it needs and
 stop. Don't delegate. Don't commit, push or open PRs.
 
 **Your report** (short, plain sentences):
@@ -32,4 +33,4 @@ stop. Don't delegate. Don't commit, push or open PRs.
 - the proof: each tool you ran and its result;
 - what you looked at, with image paths;
 - rulings you made, each with what it costs if wrong;
-- what needs code, what needs the owner, and what you couldn't check (feel above all).
+- any test or tool you changed; what needs code, what needs the owner, and what you couldn't check (feel above all).
