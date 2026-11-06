@@ -1,0 +1,8 @@
+{
+  "name": "game-dev",
+  "version": "0.1.0",
+  "description": "A game development team and method: role agents, staged design methods with owner's gates, and a kickstart that sets up a new game's design, planning and documentation.",
+  "author": { "name": "Ismail Imani" },
+  "repository": "https://github.com/iimani/game-dev-plugin",
+  "keywords": ["game-dev", "agents", "design", "planning"]
+}
