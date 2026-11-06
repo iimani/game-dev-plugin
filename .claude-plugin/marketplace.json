@@ -1,0 +1,11 @@
+{
+  "name": "game-dev-plugin",
+  "owner": { "name": "Ismail Imani" },
+  "plugins": [
+    {
+      "name": "game-dev",
+      "source": "./",
+      "description": "A game development team and method, with a kickstart for new games."
+    }
+  ]
+}
