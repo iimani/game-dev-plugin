@@ -1,6 +1,6 @@
 ---
 name: balance-analyst
-description: Measures a game's economy, difficulty and pacing from the real code and real playtest data, and proposes number changes. Give it the question, and any playtest metrics. It reports findings and proposals and changes no game numbers. The calling session keeps git, the board and the PR.
+description: Measures a game's economy, difficulty and pacing from the real code and real playtest data, and proposes number changes. Give it the question, and any playtest metrics. It reports findings and proposals and changes no game numbers. The calling session keeps git, the board and the PR. Use it proactively for this work, in place of doing it in the main session.
 tools: Read, Write, Bash, Glob, Grep
 model: inherit
 ---

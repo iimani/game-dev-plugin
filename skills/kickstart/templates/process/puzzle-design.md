@@ -107,10 +107,16 @@ probe's cost, not the numbers. Draw the mid instance so the heuristic fails once
 | Needs reasoning | Is the cheapest answer at least two real steps? | The solver's bar |
 | Beats a blind prober | Does reasoning win by 3x or more? | A blind prober per mechanic |
 | Needs the insight | Is the heuristic's hit rate what the ladder says? | The heuristic bot, per tier |
+| Needs its rule | With the rule switched off, does a shorter or different answer appear? | The solver, run twice |
 
 **The blind prober** plays with the player's feedback only. It tries a probe, reads exactly what the game shows, and picks
 the next probe from that. It counts actions and adds travel time. Report the mean and worst case over many seeds, and the
 ratio to the reasoning cost. A puzzle that opens by trying combinations fails, even if it works.
+
+**The rule-off test** checks the level, not the player. Solve the level with its rule, then again with that rule removed.
+If the same route still wins, the level never used the rule, and a player can finish it without learning it. A good level
+gets a clearly easier route once the rule is gone: that shortcut is what the rule was blocking. A solver and a random
+walker can both pass a level that fails this. Run it for each rule the level claims to teach or test.
 
 Also check: generation is by construction, and a backstop returns only an instance that clears the same bar; the same
 seed gives the same instance; every cue reads on the real screen; the time fits the budget.
@@ -123,6 +129,7 @@ moments. Say what a step-based playtest hides: timing.
 - [ ] The insight is one sentence, and the card is in the spec.
 - [ ] The hand instances are solved, and the naive path costs more than 10 probes.
 - [ ] The blind prober ratio passes (numbers in the PR).
+- [ ] The rule-off test passes for each rule the level claims.
 - [ ] The heuristic hit rate matches the tier.
 - [ ] No feedback is an oracle at this tier, or the tier says when the crutch drops out.
 - [ ] The backstop clears the bar, and its rejection rate is in the PR.

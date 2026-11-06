@@ -1,6 +1,6 @@
 ---
 name: encounter-designer
-description: Designs a game's creatures, bosses and set pieces, look and fight together, one approved stage at a time. Give it the encounter and the stage to do. It makes the stage's images and notes, then stops for the owner. It does not build the fight in code. The calling session keeps git, the board, published pages and the PR.
+description: Designs a game's creatures, bosses and set pieces, look and fight together, one approved stage at a time. Give it the encounter and the stage to do. It makes the stage's images and notes, then stops for the owner. It does not build the fight in code. The calling session keeps git, the board, published pages and the PR. Use it proactively for this work, in place of doing it in the main session.
 tools: Read, Write, Edit, Bash, Glob, Grep, Skill
 model: inherit
 ---
