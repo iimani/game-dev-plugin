@@ -20,6 +20,7 @@ files and how to run it. The calling session keeps the tracker, git, the PRs and
 - **Files:** <the files it touches>.
 - **Proof:** <what a tool or a person checks>.
 - **Role:** <which agent carries it out>.
+- **Waits for:** <the steps it needs, or "nothing", so it can run alongside the others>.
 - **Close:** <the items the session marks Built, and the catalogues it updates>.
 
 ## Rulings

@@ -48,10 +48,23 @@ only code. The session does the work itself only if it's a handful of tool calls
 **The session keeps** the decisions: talking with the owner, the gates, the plan, the tracker, git, the PR, the review, and
 updating the guideline. It doesn't keep the making.
 
+## Handing work between roles
+
+Handoffs cost the most time, so plan them.
+
+- **Mostly one side, with a little of the other:** one role owns the step, such as level work that needs a small test fix.
+- **Real work on both sides:** keep two roles, because a second eye finds things. Settle the shared format first, so
+  they can overlap.
+- **Resume, don't restart.** For follow-up work, send a message to the agent that did the first pass. It keeps its
+  context, and costs a fraction of a new one.
+- **Batch findings.** Send them back in one message, not one at a time.
+- **Brief narrowly.** Name the sections and files the role needs, so it doesn't read everything.
+- **Mind the shared machine.** Two roles running heavy tests at once slow each other down.
+
 ## Rules for every role
 
-- **Read the design first.** Read `docs/design/README.md`, then every file its routing table lists for your task, then
-  your method from `docs/process/README.md`. Where a method disagrees with the guideline or a newer owner ruling, those
+- **Read the design first.** If the brief names sections and files, read those. Otherwise read `docs/design/README.md`,
+  then every file its routing table lists for your task, then your method from `docs/process/README.md`. Where a method disagrees with the guideline or a newer owner ruling, those
   win.
 - **The calling session owns** the tracker, git, the PR, published pages, the guideline and every question to the owner. When you reach
   an owner's gate, stop and return what the session needs to put the question.
@@ -59,5 +72,8 @@ updating the guideline. It doesn't keep the making.
   can mark it.
 - **Quote the owner.** Their words go in quotes. Anything they didn't say is marked *(builder's call)*.
 - **Don't re-decide rulings.** When something is open, decide, and report it as a ruling with what it costs if wrong.
+- **Fix what blocks your proof.** You may change tests and proof tools when they stand between you and a correct proof, and
+  say so in your report. You never change the game's rules that way.
+- **Test narrowly while you iterate.** Run the suite you're working on, and the full check once at the end.
 - **Keep inventories current.** A new kind of thing gets its catalogue row in the same change.
 - **Write plainly.** Short sentences, in reports as well as docs.

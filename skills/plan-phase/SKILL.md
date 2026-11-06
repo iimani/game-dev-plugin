@@ -14,9 +14,12 @@ The design guideline is the tracker. A plan comes from it, and goes back into it
 2. **A plan file per phase,** in `docs/plans/`. The master plan in `docs/design/plan.md` stays the summary.
 3. **Tasks are cut from the plan,** one per PR, test-first.
 4. **Every PR updates the design:** it marks its items **[Built, KEY-N]** and updates `docs/design/status.md`.
-5. **One lane at a time through shared files.** Land one PR, merge it into the next branch, and never rebase. Work in
+5. **Few handoffs.** A step that's mostly one side, with a little of the other, gets one owner. A step with real work on
+   both sides keeps two roles, with the shared format settled first. See "Handing work between roles" in
+   `docs/team/README.md`.
+6. **One lane at a time through shared files.** Land one PR, merge it into the next branch, and never rebase. Work in
    separate files can run in parallel.
-6. **Don't build on what's being replaced.**
+7. **Don't build on what's being replaced.**
 
 ## Steps
 
@@ -29,8 +32,10 @@ The design guideline is the tracker. A plan comes from it, and goes back into it
 4. Pick a role for every step, from "Who does what" in `docs/team/README.md`, design steps included. Then write the plan
    file from `${CLAUDE_PLUGIN_ROOT}/skills/kickstart/templates/plan-file.md`. Each step is a PR with What,
    Tests, Files and Proof. Name which role carries it out (`docs/team/README.md`).
-5. Update `docs/design/plan.md`: the phase, its exit, and "Where we are".
-6. Stop for the owner's approval. Then cut the tasks, in the tracker named in CLAUDE.md.
+5. Mark what can run in parallel, and what each step waits for. If steps run one after another only because a format isn't
+   settled, make settling it the first step.
+6. Update `docs/design/plan.md`: the phase, its exit, and "Where we are".
+7. Stop for the owner's approval. Then cut the tasks, in the tracker named in CLAUDE.md.
 
 ## Close a task
 
