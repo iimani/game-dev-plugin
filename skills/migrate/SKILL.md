@@ -24,7 +24,7 @@ state wins: map what's there, and don't redesign it. Templates are in
 | 1. Audit | What exists, and how it maps (below). Change nothing | the owner approves the map |
 | 2. Guideline | `docs/design/`, filled from what's there | the owner reviews labels and open decisions |
 | 3. Methods | `docs/process/`, keeping any process the game already has | the owner |
-| 4. Team | `docs/team/`, role files, "Who does what", delegation in `CLAUDE.md` | |
+| 4. Team | `docs/team/`, role files, "Who does what", delegation in `CLAUDE.md`, and each role's model | the owner |
 | 5. Agents | Project agents move to the plugin's roles | the owner |
 | 6. Plan | The current work becomes `docs/design/plan.md` and `status.md` | the owner |
 | 7. Check | Run the checks and prove delegation works (below) | |
@@ -65,6 +65,8 @@ specific to this game. Delete the old agent file once the role works. A job no r
 A session keeps doing the work itself unless the setup says otherwise. Use the "Agents" section of `templates/CLAUDE.md`,
 and "Who does what" from `templates/team/README.md`, filled with this game's kinds of work. Remove any line that says the
 session keeps the design, or that names only some of the roles.
+
+Then run the `choose-models` skill. If a project agent already had a model for a measured reason, keep it, and say why.
 
 ## Stage 7: the check
 

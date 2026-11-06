@@ -20,6 +20,7 @@ If the user asked about one thing, answer only that.
 | `/game-dev:kickstart` | Start a new game: vision, platform, core loop, art style, sound, methods, team, first plan |
 | `/game-dev:migrate` | Bring an existing game onto this setup, without losing anything |
 | `/game-dev:choose-art-style` | Pick or change the art style, by testing the same scene in each |
+| `/game-dev:choose-models` | See the recommended model for each role, and change them |
 | `/game-dev:plan-phase` | Plan the next phase, write its plan file and cut tasks |
 | `/game-dev:help` | Show this guide |
 

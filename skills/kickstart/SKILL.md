@@ -31,7 +31,7 @@ the game changes them freely, and they never update from the plugin.
 | 7. Sound | How much sound matters, its tool (see the art style method's tool table), whether it can carry information alone | `docs/design/audio.md` | the owner |
 | 8. Methods | Which design methods this game needs (below) | `docs/process/` | the owner |
 | 9. Tracking | Where tasks live, the task key, and how a task moves | `CLAUDE.md` | the owner |
-| 10. Team | Which roles this game uses, and who does what (below) | `docs/team/`, `CLAUDE.md` | |
+| 10. Team | Which roles this game uses, who does what, and each role's model (below) | `docs/team/`, `CLAUDE.md` | the owner |
 | 11. First plan | Run the `plan-phase` skill for phase 1, a vertical slice | `docs/design/plan.md` | the owner |
 
 ## A design document, if the owner wants one
@@ -77,7 +77,8 @@ to make delegation the default.
    never copies them. Write `docs/team/playtester-controls.md` too: it lists every key the game accepts or prompts for,
    including between levels and on menus.
 3. Fill the "Who does what" table in `docs/team/README.md` with this game's own kinds of work.
-4. Keep the "Agents" section of `CLAUDE.md` as the template has it. Add nothing that says the session keeps the design:
+4. Run the `choose-models` skill: it recommends a model for each role, and the owner decides.
+5. Keep the "Agents" section of `CLAUDE.md` as the template has it. Add nothing that says the session keeps the design:
    that line is what sends the work back to the session.
 
 Then run both checks. Leave the commit to the owner's git flow: use a branch and a PR, never the main branch.
