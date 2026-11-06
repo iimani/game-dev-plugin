@@ -46,6 +46,7 @@ gives the same run. That's how bugs reproduce. *(For any game with generated con
 
 ## Keep the design guideline current
 
+- `docs/design/` is the source of truth, edited by hand. Any design document or published page is a one-way copy.
 - Every item carries **[Built]**, **[Approved]**, **[Draft]** or **[Proposal]**.
 - A PR that builds an item marks it **[Built, <KEY>-N]** and updates `docs/design/status.md`.
 - A PR that changes a rule, a number or a look updates the section that holds it.

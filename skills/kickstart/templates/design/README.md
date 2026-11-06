@@ -15,7 +15,7 @@ This is the game's design: what it is, how each system works, and what is built,
 | **Draft** | written by the builder, marked *(builder's call)*; the owner hasn't reviewed it |
 | **Proposal** | an idea the owner hasn't approved; kept, not planned |
 
-**How it's maintained.** A PR that changes a rule, a number or a status updates the matching section in the same change.
+**How it's maintained.** This folder is the source of truth. Edit it by hand. A PR that changes a rule, a number or a status updates the matching section in the same change.
 When this guideline and another document disagree, the newer owner ruling wins, and both are corrected in the same change.
 
 **Tracking implementation.** This guideline is also the implementation tracker. An item's label moves Draft → Approved →

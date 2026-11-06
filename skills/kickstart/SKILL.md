@@ -14,6 +14,8 @@ the game changes them freely, and they never update from the plugin.
 - **The owner decides.** Go one stage at a time, and stop at each gate. Bring two or three real options with what each
   costs, plus your pick. Use their words, in quotes. Anything they didn't say is *(builder's call)*.
 - **Don't fill silence with design.** A section with no decision says what's open. It doesn't get invented content.
+- **The repo is the source of truth.** `docs/design/` is plain markdown, edited in the same PR as the change. Nothing is
+  generated from anywhere else, so keeping the design current costs no sync step.
 - **Existing repo:** read what's there first. Never overwrite a doc: map it onto the structure and say what's missing.
 
 ## Stages
@@ -31,6 +33,17 @@ the game changes them freely, and they never update from the plugin.
 | 9. Scaffold | Everything below | the repo | |
 | 10. First plan | Run the `plan-phase` skill for phase 1, a vertical slice | `docs/design/plan.md` | the owner |
 
+## A design document, if the owner wants one
+
+Reading and commenting on a whole design is easier in a document than in a repo. If the owner wants that, and a docs
+connector is available, draft stages 2 to 6 in one document and review it there. It's a design step, not a second home:
+1. At stage 9, import the approved document into `docs/design/`, once.
+2. Mark the document as frozen at its top: it's a record of that design, and the repo holds the current one.
+3. Nothing flows back. Later, a session can publish a page from the repo if the owner asks. That page is one-way, and
+   nobody edits it.
+
+Do the same for a big design phase later on. Images go in the repo, so `docs/design/` can link them.
+
 ## Stage 7: choosing methods
 
 `templates/process/README.md` lists them all, and each template's first lines say when to use it and which genres can
@@ -40,7 +53,8 @@ core loop needs: a puzzle game needs `puzzle-design.md`, a run-based game needs 
 
 ## Stage 9: the scaffold
 
-1. **Design guideline.** Copy `templates/design/` to `docs/design/`. Fill it from stages 2 to 6. Every item carries a
+1. **Design guideline.** Copy `templates/design/` to `docs/design/`. Fill it from stages 2 to 6, or import the design
+   document. Every item carries a
    label: **[Built]**, **[Approved]**, **[Draft]** or **[Proposal]**. What the owner ruled at a gate is **[Approved]**.
 2. **Methods.** Copy the chosen files from `templates/process/` to `docs/process/`.
 3. **Team.** Copy `templates/team/README.md` to `docs/team/README.md`. For each role in use, write `docs/team/<role>.md`
