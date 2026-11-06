@@ -22,7 +22,9 @@ at kickstart and belong to it from then on.
 - `plan-phase` plans the next phase, writes its plan file and cuts tasks.
 
 **The method:**
-- A design guideline that doubles as the implementation tracker. Every item is Built, Approved, Draft or Proposal.
+- A design guideline in the repo that doubles as the implementation tracker. Every item is Built, Approved, Draft or
+  Proposal. It's edited in the same PR as the change, so there's no sync step. A design document is optional: it's for
+  reviewing a design, is imported once, and is then frozen.
 - A staged method per kind of design work, each with its gates and proofs.
 - Proved, not hoped: bots and solvers check content before a person plays it.
 - A blind playtester that knows only what's on the screen.
