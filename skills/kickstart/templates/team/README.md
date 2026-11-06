@@ -13,18 +13,20 @@ names a path that doesn't exist.
 
 ## The roles
 
-| Role | Does | Method |
-|---|---|---|
-| `developer` | implements a planned task | the phase's plan in `docs/plans/` |
-| `level-designer` | levels, traversal, puzzles, pacing | `docs/process/level-design.md` |
-| `encounter-designer` | creatures, bosses, set pieces | `docs/process/encounter-design.md` |
-| `game-artist` | production art, in the game's chosen style | `docs/process/art-style.md` |
-| `sound-designer` | sound effects, ambience, music | `docs/process/sound-design.md` |
-| `narrative-writer` | story, lore, and every word the player reads | `docs/process/lore-design.md` |
-| `balance-analyst` | economy, difficulty and pacing numbers | `docs/process/progression-design.md` |
-| `code-reviewer` | read-only review against the architecture rules | CLAUDE.md |
-| `design-guardian` | read-only audit of a change against the design | `docs/design/README.md` |
-| `playtester` | plays blind | `docs/team/playtester-controls.md` |
+| Role | Does | Method | Model |
+|---|---|---|---|
+| `developer` | implements a planned task | the phase's plan in `docs/plans/` | `opus` |
+| `level-designer` | levels, traversal, puzzles, pacing | `docs/process/level-design.md` | `opus` |
+| `encounter-designer` | creatures, bosses, set pieces | `docs/process/encounter-design.md` | `opus` |
+| `game-artist` | production art, in the game's chosen style | `docs/process/art-style.md` | `sonnet` |
+| `sound-designer` | sound effects, ambience, music | `docs/process/sound-design.md` | `sonnet` |
+| `narrative-writer` | story, lore, and every word the player reads | `docs/process/lore-design.md` | `opus` |
+| `balance-analyst` | economy, difficulty and pacing numbers | `docs/process/progression-design.md` | `sonnet` |
+| `code-reviewer` | read-only review against the architecture rules | CLAUDE.md | `opus` |
+| `design-guardian` | read-only audit of a change against the design | `docs/design/README.md` | `sonnet` |
+| `playtester` | plays blind | `docs/team/playtester-controls.md` | `sonnet` |
+
+The session passes the Model value as `model` on the Agent call. `/game-dev:choose-models` shows why each is recommended, and changes them.
 
 ## Who does what
 

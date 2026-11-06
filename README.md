@@ -21,6 +21,7 @@ at kickstart and belong to it from then on.
 - `kickstart` starts a new game: the scaffold, vision, platform, core loop, art style, sound, methods, team and first plan.
 - `migrate` brings an existing game onto this setup, without losing anything.
 - `choose-art-style` picks a style and tool by making the same test asset in each and judging it on the real screen.
+- `choose-models` recommends a model for each role, and records the owner's choice. `kickstart` and `migrate` run it.
 - `plan-phase` plans the next phase, writes its plan file and cuts tasks.
 - `help` shows the commands and roles, and says what to do next in this repo.
 

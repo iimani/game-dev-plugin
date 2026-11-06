@@ -68,6 +68,8 @@ counts, not only code: blocking out a level, drawing an asset, writing a line.
 
 Do it yourself only if it's a handful of tool calls, or no role fits, and say so in one line.
 
+Pass the role's Model from `docs/team/README.md` as `model` on the Agent call. `/game-dev:choose-models` changes them.
+
 The session keeps the decisions: talking with the owner, the gates, the plan, the tracker, git, the PR, the review, and
 updating the guideline. It doesn't keep the making. A role stops at an owner's gate and hands back what the session needs
 to ask.
