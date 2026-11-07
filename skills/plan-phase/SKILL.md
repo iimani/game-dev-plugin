@@ -26,7 +26,8 @@ The design guideline is the tracker. A plan comes from it, and goes back into it
 1. Read `docs/design/README.md`, `plan.md`, `status.md` and `decisions.md`, then the files the routing table lists for
    this work. Read the code it touches. Plan from what's true, and don't assume a section is still current.
 2. List what blocks the phase: open decisions, and items still **[Draft]**. Put them to the owner first, each with your
-   call and what it costs if wrong.
+   call and what it costs if wrong. Show the top of "Optional" from the last plan file in the same message. What the owner
+   picks becomes a step, and the rest moves to this plan's "Optional".
 3. Set the phase's goal and its exit: one sentence a person can check. The first phase of a new game is a vertical
    slice: one short stretch of the real game, with its core loop, proved and playable.
 4. Pick a role for every step, from "Who does what" in `docs/team/README.md`, design steps included. Then write the plan
@@ -48,7 +49,8 @@ ready, the session:
 1. Marks each item **[Built, KEY-N]** where it lives, and updates `docs/design/status.md` and "Where we are" in `plan.md`.
 2. Adds anything built without a ruling to `docs/design/decisions.md`, or records it as a *(builder's call)*.
 3. Updates the catalogues the task touched.
-4. Runs `game-dev:design-guardian`, which checks all of the above.
+4. Adds the playtest's **Worth doing** findings to "Optional" in the plan file, in rank order.
+5. Runs `game-dev:design-guardian`, which checks all of the above.
 
 ## Keep it honest
 
