@@ -5,6 +5,7 @@
 - Role files name no art or audio tool: the project file does that.
 - Every role has a row in the team template.
 """
+import json
 import pathlib
 import re
 import sys
@@ -28,6 +29,15 @@ for path in root.glob("agents/*.md"):
     if f"`{path.stem}`" not in index:
         problems.append(f"role {path.stem} has no row in the team template")
 
+hooks_file = root / "hooks/hooks.json"
+if hooks_file.exists():
+    for entries in json.loads(hooks_file.read_text())["hooks"].values():
+        for entry in entries:
+            for hook in entry["hooks"]:
+                for script in re.findall(r"\$\{CLAUDE_PLUGIN_ROOT\}/(\S+?)\"?(?:\s|$)", hook["command"]):
+                    if not (root / script).exists():
+                        problems.append(f"hooks/hooks.json runs {script}, which doesn't exist")
+
 if problems:
     sys.exit("check-plugin:\n  " + "\n  ".join(problems))
-print("check-plugin: generic, and every role is indexed")
+print("check-plugin: generic, every role is indexed, hooks resolve")
