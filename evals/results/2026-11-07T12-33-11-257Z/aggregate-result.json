@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.316",
+  "startedAt": "2026-11-07T12:33:11.257Z",
+  "durationSeconds": 55,
+  "costUsd": 0.5667254,
+  "partial": false,
+  "suite": {
+    "root": "/Users/ismail/workspace/game-dev-plugin/.claude/worktrees/room-design-mockups-d0f431",
+    "ablation": "with-without",
+    "threshold": 1,
+    "concurrency": 3,
+    "plugins": [
+      {
+        "name": "game-dev",
+        "version": "0.1.6",
+        "path": "/Users/ismail/workspace/game-dev-plugin/.claude/worktrees/room-design-mockups-d0f431"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "kickstart-small-game",
+      "dir": "evals/kickstart-small-game",
+      "source": "prose",
+      "promptMarkdown": "I want to start a new game: a tiny one-screen arcade game I'll finish in a weekend, just me. The folder is empty. Set up\nthe game-dev structure for it. Don't write any files yet: tell me what you would do first and what you need from me.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 8,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The response follows the game-dev kickstart. It passes only if ALL are true:\n- It uses or follows the kickstart (invokes the `kickstart` skill, or clearly describes its stages), and does not invent a\n  different setup.\n- It recognises this as a small game and recommends or offers the shorter small-game path (fewer docs, one gate), leaving\n  the choice to the owner.\n- It asks for or names what it needs from the owner (such as vision, platform or engine) and stops for them instead of\n  deciding silently.\n- It does not claim to have written files.",
+          "config": {
+            "criteria": "The response follows the game-dev kickstart. It passes only if ALL are true:\n- It uses or follows the kickstart (invokes the `kickstart` skill, or clearly describes its stages), and does not invent a\n  different setup.\n- It recognises this as a small game and recommends or offers the shorter small-game path (fewer docs, one gate), leaving\n  the choice to the owner.\n- It asks for or names what it needs from the owner (such as vision, platform or engine) and stops for them instead of\n  deciding silently.\n- It does not claim to have written files.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 4,
+            "costUsd": 0.12060190000000001,
+            "judgeCostUsd": 0.0023517,
+            "durationSeconds": 29,
+            "startedAt": "2026-11-07T12:33:11.321Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-mdN75s/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "I checked the folder: it's an empty git repo on `main`. I haven't written anything.\n\n## My recommendation: the small setup\n\nThe full setup has around 11 stages with an approval step after each one. That's too much for a weekend game. Since this is one screen, one person, done in a weekend and not maintained after, I'd use the smaller version:\n\n- **Fewer files.** Only `docs/design/README.md` (the vision), `mechanics.md` (the core loop), `tech.md` (platform, art and sound, a few lines each), `plan.md`, `status.md` and `decisions.md`. Plus a short `CLAUDE.md` and `docs/team/README.md`.\n- **One question sheet instead of five.** You answer vision, platform, core loop, art and sound together and approve once.\n- **Few extra agents.** I'd set up a helper role (like developer or artist) only if it has two or more tasks in the plan. Everything else I do directly.\n- **Two small checks** that make sure the docs and the team setup stay consistent. A playtest controls sheet only if we plan a playtest.\n\nYou can switch to the full setup later by copying in what's missing.\n\n## The order I'd work in, once you say go\n\n1. Make a branch, not `main`, and copy in the small set of files.\n2. Fill the sheet from your answers. Anything you didn't decide is marked as my call or left open. I won't invent design to fill gaps.\n3. You approve the sheet.\n4. Write a phase 1 plan: a small playable version that works end to end. Then cut it into tasks.\n5. Run the checks, then tell you what was set up, what's still open, and the first task.\n\n## What I need from you\n\nShort answers are fine. Skip any you don't care about and I'll suggest something:\n\n1. **The game in one sentence.** What does the player do, and what's the twist?\n2. **How it should feel**, two or three words (e.g. \"frantic\", \"cozy\", \"one more go\"). Also anything it must **not** be.\n3. **Platform:** browser, desktop, or phone? Do you have an engine or language in mind? If not, I'd pick plain HTML5 Canvas with TypeScript or JavaScript. It runs in any browser with no install and is easy to test.\n4. **Controls:** keyboard, mouse, touch, or gamepad? Which keys or buttons?\n5. **The loop:** what happens second to second, how a game ends (lives, timer, one hit), and what brings players back (high score, unlocks, nothing).\n6. **Art:** a style in mind (pixel, flat vector, plain shapes)? Making your own art, or should I generate it? Do you want a quick side-by-side test of a couple of styles, or just pick one?\n7. **Sound:** none, a few sound effects, or music too? Should any sound carry information on its own (e.g. a warning cue)?\n8. **Plugin:** do you want the game-dev plugin listed in the repo's `.claude/settings.json`?\n\nAnswer those and I'll do steps 1 to 5 above."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 1,
+            "costUsd": 0.0761901,
+            "judgeCostUsd": 0.0016821,
+            "durationSeconds": 25,
+            "startedAt": "2026-11-07T12:33:11.322Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-LIgYok/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "Here's how I'd set it up. The theme is to keep it small, because a weekend solo game benefits more from a short path to \"playable\" than from structure.\n\n## What I'd do first\n\n**1. Choose the stack.** Every other decision depends on this. Unless you already have a favorite, I'd suggest **plain HTML5 Canvas + JavaScript, with no build step**. You open `index.html` and it runs, it's easy to share or post to itch.io, and there are no dependencies to fight on a Sunday night. Godot, LÖVE (Lua) or Pygame are also good choices if you already know one of them.\n\n**2. Create a minimal layout** (for the browser option):\n```\nindex.html        # canvas + script tag\nsrc/\n  main.js         # game loop, fixed timestep, state switch (title / play / game over)\n  input.js        # keyboard (and maybe gamepad) state\n  game.js         # entities, collisions, scoring: the actual game\nassets/\n  sprites/  sfx/\nDESIGN.md         # one page: core loop, controls, win/lose, scoring, cut list\n.gitignore\n```\nI'd leave out an engine abstraction, an ECS and a bundler. If one file gets too big, we split it then.\n\n**3. Write a one-page `DESIGN.md`** with the core mechanic in one sentence, the controls, the fail condition, the scoring, and a \"won't do this weekend\" list to protect your scope.\n\n**4. Make a placeholder build:** colored rectangles moving on screen with input, a game loop and a restart key. That gets you to playable within the first hour.\n\n**5. Plan the weekend:**\n- **Saturday morning:** the core mechanic, playable.\n- **Saturday afternoon:** rules, score and game over.\n- **Sunday:** juice (screen shake, particles, sound), a title screen, high score in localStorage.\n- **Sunday evening:** publish.\n\n**Git:** the repo this folder is in looks like it's rooted one level up (`git status` shows `../.gitconfig`). I'd run `git init` inside this folder so the game has its own repo.\n\n## What I need from you\n\n1. **Stack:** browser/JS (my pick), or an engine or language you prefer?\n2. **The idea:** the core mechanic in a sentence or two, plus the controls (keyboard only? mouse? gamepad?).\n3. **Screen:** resolution and aspect ratio, and whether you want a pixel-art look (low internal resolution, scaled up) or smooth vector-style graphics.\n4. **Assets:** do you have your own art and sound, or should I start with colored shapes and generated beeps?\n5. **Where it ships:** just your machine, a web link, or itch.io?\n6. **Extras:** do you want a separate git repo, and a short `CLAUDE.md` with project conventions so later sessions stay consistent?\n\nOnce you answer 1 and 2, I can set up the skeleton and placeholder build in one go."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 1
+      }
+    },
+    {
+      "name": "migrate-existing-game",
+      "dir": "evals/migrate-existing-game",
+      "source": "prose",
+      "promptMarkdown": "I already have a half-finished game in this repo (code, no docs). I want to adopt the game-dev plugin's way of working\nwithout losing anything. What do I run and what will it do? Don't change anything yet.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 8,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The response points an existing game at the migrate path. It passes only if ALL are true:\n- It names or uses the `migrate` skill (`/game-dev:migrate`), and does not suggest kickstart as the way to bring in\n  existing code.\n- It says nothing existing is thrown away or overwritten.\n- It does not claim to have changed any files.",
+          "config": {
+            "criteria": "The response points an existing game at the migrate path. It passes only if ALL are true:\n- It names or uses the `migrate` skill (`/game-dev:migrate`), and does not suggest kickstart as the way to bring in\n  existing code.\n- It says nothing existing is thrown away or overwritten.\n- It does not claim to have changed any files.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.10027419999999998,
+            "judgeCostUsd": 0.0013662000000000001,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-07T12:33:11.322Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-ui4Qhv/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "The command you want is **`/game-dev:migrate`**. `/game-dev:kickstart` is for starting a new game, and on an existing repo it would build a fresh structure instead of mapping what you already have.\n\n**What it does, based on the plugin's description of it:**\n1. **Audits what you have.** It reads your code, any existing docs or notes, and any agent or CLAUDE.md files.\n2. **Maps that onto the game-dev structure.** That means a design guideline (vision, core loop, rulings), method docs, team files under `docs/team/`, and a CLAUDE.md. With code and no docs, most of the design guideline would be worked out from the code, and anything the code can't answer would come to you as a question.\n3. **Turns on delegation.** After that, work goes to the plugin's role agents (developer, code-reviewer, design-guardian, playtester, artist and others) instead of being done in the main session. It will probably also run `/game-dev:choose-models` so you can pick which model each role uses.\n4. **Doesn't lose or overwrite anything.** It's built to add the new structure alongside your existing files, not to replace them.\n\nAfter the migration, `/game-dev:plan-phase` turns the half-finished state into a phase plan with tasks. `/game-dev:help` gives an overview of how the plugin works.\n\n**Two things to check before you run it:**\n- **I couldn't find your game.** My working directory, `/private/tmp/e-ui4Qhv/home/cwd`, is empty. The git repo it belongs to, at `/private/tmp/e-ui4Qhv/home`, has no commits and only an untracked `.gitconfig`. Your game code is probably somewhere else. Run the migration from that repo, or point me at it.\n- **Commit everything first.** The game is \"half-finished\", so commit your current state, or at least create a branch, before migrating. Then every change the migration makes shows up as a clean diff you can review or roll back.\n\nI also couldn't open the plugin's own instruction files (access was denied), so steps 1–4 come from the plugin's summary of the command, not its full text. I haven't run anything or changed any files. When you're in the right repo, tell me to go ahead and I'll start `/game-dev:migrate`."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 5,
+            "costUsd": 0.0738685,
+            "judgeCostUsd": 0.0004187000000000006,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-07T12:33:35.444Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-Yq2UwX/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "I can't tell you what to run yet, because two things I expected to find aren't here:\n\n1. **No game-dev plugin is installed.** My available skills are `init`, `run`, `code-review`, `simplify`, `plugin-authoring`, and a few others. None of them is a game-dev plugin, so I don't know its commands or what they do. I won't guess at a command name and describe its behaviour as if I knew.\n2. **The working directory looks empty.** `/private/tmp/e-Yq2UwX/home/cwd` has no files, and git shows only an untracked `../.gitconfig` with no commits. I also couldn't search further, because my search permission was denied outside this folder. So I don't see the half-finished game. It may be in another directory.\n\n**What would help:**\n- **Where's the game?** Give me the path, or start Claude Code from inside the game's repo.\n- **Which plugin?** Install it (via `/plugin`) and restart the session, or tell me its name or marketplace. Once its commands show up, I can read its instructions and tell you exactly what each one would create or change before you run anything.\n\n**Protect your work first:** the repo has no commits yet. Before running any plugin's setup command, commit the game code (`git add -A && git commit -m \"snapshot before game-dev plugin\"`). That gives you a restore point if the plugin writes or overwrites files.\n\n**Option that works now:** the built-in `/init` reads your code and creates a `CLAUDE.md` describing it. It only adds that one file. But it's not the plugin's workflow, so it may overlap with or conflict with whatever docs the plugin wants to create. I'd hold off until we know what the plugin expects.\n\nI haven't changed anything."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 1
+      }
+    },
+    {
+      "name": "role-stops-without-team-docs",
+      "dir": "evals/role-stops-without-team-docs",
+      "source": "prose",
+      "promptMarkdown": "Use the game-dev:balance-analyst agent to tell me whether the coin economy in this game is too generous. Report what it\nsays.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 8,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "This repo has no `docs/team/README.md`. The role is supposed to stop and report that, never guess a project's rules.\nIt passes only if ALL are true:\n- The final answer says the analyst could not do the analysis, or stopped, because the team docs\n  (`docs/team/README.md` or its role file) are missing or no brief carried them.\n- It does not state an economy verdict (too generous or not) as if measured.\n- It does not make up numbers, files or a game.",
+          "config": {
+            "criteria": "This repo has no `docs/team/README.md`. The role is supposed to stop and report that, never guess a project's rules.\nIt passes only if ALL are true:\n- The final answer says the analyst could not do the analysis, or stopped, because the team docs\n  (`docs/team/README.md` or its role file) are missing or no brief carried them.\n- It does not state an economy verdict (too generous or not) as if measured.\n- It does not make up numbers, files or a game.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 2,
+            "costUsd": 0.1447649,
+            "judgeCostUsd": 0.0003738999999999999,
+            "durationSeconds": 29,
+            "startedAt": "2026-11-07T12:33:36.557Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-CpugUc/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "The balance analyst couldn't give a verdict because there's no game in this repo to analyse.\n\nWhat it found:\n- **The working directory** (`/private/tmp/e-CpugUc/home/cwd`) is empty, hidden files included. A search for \"coin\" found nothing.\n- **The repo itself** starts one level up at `/private/tmp/e-CpugUc/home`, has no commits, and its only file is `.gitconfig`.\n- **The project's team docs** (`docs/team/README.md` and `docs/team/balance-analyst.md`) don't exist. The analyst normally reads these for the project's balance rules.\n\nSo it has no verdict, reasons or proposed number changes. There's nothing to measure: no coin sources, drop rates, prices, upgrades or playtest data. It changed nothing.\n\nTo get an answer, it needs:\n1. **The game:** the correct path, branch or checkout, if the game lives somewhere else.\n2. **Optionally, a target pace:** for example, \"a player should afford the first major upgrade in about N minutes.\" Without one, it can only compare how fast coins come in with how fast they're spent. It can't say whether that's the pace you want.\n\nIf you point me at the game, I'll run the analysis again."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 1,
+            "costUsd": 0.051025799999999996,
+            "judgeCostUsd": 0.00039380000000000014,
+            "durationSeconds": 9,
+            "startedAt": "2026-11-07T12:33:39.921Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-hSffGw/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "I couldn't run that agent because **`game-dev:balance-analyst` isn't installed in this session.** The agents I have are `claude`, `Explore`, `general-purpose`, `Plan` and `statusline-setup`. There's no `game-dev` plugin or balance-analyst among them, so I have no report from it to pass on.\n\nYou can get the analysis two ways:\n\n1. **Install or enable the `game-dev` plugin** that provides `balance-analyst`, then ask again and I'll run it.\n2. **I analyze the coin economy myself,** or hand it to a `general-purpose` agent. That would mean finding where coins are earned and spent, working out earn rates against costs over a typical session, and checking for exploits or runaway accumulation. Then I'd tell you whether it's too generous.\n\nWhich do you want?"
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 1
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 3,
+    "casesPassed": 3,
+    "overallScore": 1,
+    "overallPassRate": 1,
+    "meanDelta": 1
+  }
+}

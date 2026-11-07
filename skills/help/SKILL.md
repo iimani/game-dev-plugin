@@ -9,7 +9,8 @@ Show the user the guide below, as it stands. Then look at this repo and end with
 
 - no `docs/design/` and no game code: run `/game-dev:kickstart`;
 - game code but no `docs/design/` or `docs/team/`: run `/game-dev:migrate`;
-- set up: name the next item in `docs/design/plan.md`, and the role that takes it.
+- set up: run `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/design-status.py"`, show its counts, and name the next item in
+  `docs/design/plan.md` and the role that takes it.
 
 If the user asked about one thing, answer only that.
 
@@ -23,6 +24,9 @@ If the user asked about one thing, answer only that.
 | `/game-dev:choose-models` | See the recommended model for each role, and change them |
 | `/game-dev:plan-phase` | Plan the next phase, write its plan file and cut tasks |
 | `/game-dev:playtest` | Run a blind playtest of a change: brief the tester, sort findings, fix critical ones, rank the rest |
+| `/game-dev:close` | Close a task: check it against the design, mark items Built, run the reviewers |
+| `/game-dev:decide` | Record an owner's ruling in `decisions.md` and relabel what it settles |
+| `/game-dev:upgrade` | Bring a game's copies of the templates up to date with the plugin |
 | `/game-dev:help` | Show this guide |
 
 ## Roles

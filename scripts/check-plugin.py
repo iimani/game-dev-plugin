@@ -44,6 +44,12 @@ for path in root.glob("skills/kickstart/templates/engines/*.md"):
         if label not in path.read_text():
             problems.append(f"{path.relative_to(root)} has no {label}")
 
+for path in root.glob("scripts/*.py"):
+    try:
+        compile(path.read_text(), str(path), "exec")
+    except SyntaxError as error:
+        problems.append(f"{path.relative_to(root)} doesn't compile: {error}")
+
 if problems:
     sys.exit("check-plugin:\n  " + "\n  ".join(problems))
-print("check-plugin: generic, every role is indexed, hooks resolve, engine adapters complete")
+print("check-plugin: generic, every role is indexed, hooks resolve, engine adapters complete, scripts compile")
