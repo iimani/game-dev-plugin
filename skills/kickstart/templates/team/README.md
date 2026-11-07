@@ -62,6 +62,11 @@ Handoffs cost the most time, so plan them.
   work that must overlap as new agents, in one message.
 - **Send review fixes back.** They go to the role that made the work, even small ones. The session's context is the
   costliest place to make them.
+- **Show the owner the real thing.** The owner doesn't see a role's report. At a gate, paste its mockups and drafts
+  into the chat word for word, never a summary.
+- **Small tweaks to a mockup stay in the session.** Once the owner has picked a variant, nudges like "door left" are
+  edited here, not sent back. Resume the role for the next stage. This is for design feedback: review fixes still go
+  back to the role.
 - **Batch findings.** Send them back in one message, not one at a time.
 - **Brief narrowly.** Name the sections and files from the step's **Read** line, so the role reads only those. Give
   `code-reviewer` the diff and the rules, not the guideline.
