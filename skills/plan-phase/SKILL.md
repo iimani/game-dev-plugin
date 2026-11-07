@@ -34,6 +34,10 @@ The design guideline is the tracker. A plan comes from it, and goes back into it
    file from `${CLAUDE_PLUGIN_ROOT}/skills/kickstart/templates/plan-file.md`. Each step is a PR with What,
    Read, Tests, Files and Proof. Name which role carries it out (`docs/team/README.md`). **Read** lists the sections and
    files that role needs, so its brief can name them and it reads nothing else.
+   **Scope check.** Before you go on, hold the plan against the exit from step 3. For each step, say which part of the
+   exit it serves, and move any step that serves none to "Optional". Flag a phase with more than about seven steps, or a
+   step with no guideline item behind it, and offer the owner a cut. The slice is done when its exit is met, so extra
+   steps are a cost, not a bonus.
 5. Mark what can run in parallel. A step that waits on another names what it needs from it: a file, a format or a number.
    "The rules step" isn't an answer. If all it needs is a format, make settling that format a short first step, so both
    steps can run side by side. Levels, for example, usually need the tile format, not the finished rules.
