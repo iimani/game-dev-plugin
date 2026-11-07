@@ -31,6 +31,7 @@ Delete the rows this game doesn't need. Set each row's status as you start using
 | Tools: what the player carries or equips | `tool-design.md` | <fill: status> |
 | The HUD, controls on screen, camera, banners, hit feedback | `hud-and-feedback-design.md` | <fill: status> |
 | Sound and music | `sound-design.md` | <fill: status> |
+| Recording runs so numbers can be tuned from data | `telemetry.md` | <fill: status> |
 | Story, lore, world text | `lore-design.md` | <fill: status> |
 | The art style, and the tool that makes it | `art-style.md` | <fill: status> |
 
