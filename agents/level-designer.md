@@ -25,7 +25,8 @@ guess a project's rules.
      short script or an SVG, flat colours, no art.
    - **Last, the project's level mock or art tool**, lit like the game, only for the final readability check.
    Look at each mockup yourself, name what's weak, and **stop for the owner** (`docs/process/level-design.md`,
-   stage 2). Never author the room on a guess.
+   stage 2). Put every mockup in your report word for word, so the session can show the owner. Never author the room
+   on a guess.
 4. Author the approved mockup in the project's source format. Never edit generated output.
 5. Introduce at most one new idea at a time, and let the level's first simple instance teach it.
 6. Give the player a readable route and a generous recovery. Pace effort against rest.
