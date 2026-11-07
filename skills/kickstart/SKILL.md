@@ -27,7 +27,7 @@ the game changes them freely, and they never update from the plugin.
 | 1. Look | New or existing repo, what's already decided, and the game's size (below) | | the owner |
 | 2. Scaffold | Copy the structure in first, so every later stage has its file (below) | the repo | |
 | 3. Vision | One sentence, the feelings, three to five pillars, anti-goals, session length, how it's sold | `docs/design/README.md` | the owner |
-| 4. Platform | Platform, engine, language, input, what can be tested without the engine | `docs/design/tech.md` | the owner |
+| 4. Platform | Platform, engine, language, input, what can be tested without the engine; the engine's adapter (below) | `docs/design/tech.md` | the owner |
 | 5. Core loop | What the player does minute to minute, per session and over the whole game | `docs/design/run.md`, `docs/design/controls.md` | the owner |
 | 6. Art style | Run the `choose-art-style` skill | `docs/design/art.md`, `docs/team/game-artist.md` | the owner |
 | 7. Sound | How much sound matters, its tool (see the art style method's tool table), whether it can carry information alone | `docs/design/audio.md` | the owner |
@@ -79,12 +79,20 @@ Do the same for a big design phase later on. Images go in the repo, so `docs/des
    run them from its test script. A path that's named but not built yet goes in the script's `PLANNED` set.
 7. **Plugin.** Add the plugin to the repo's `.claude/settings.json`, if the owner wants it declared there.
 
+## Stage 4: the engine adapter
+
+`templates/engines/` holds a short adapter per engine: `godot.md`, `unity.md`, `unreal.md`, `web.md` and `bevy.md`. Each
+gives the headless run, test and export commands, how the playtester sees the game, and what to keep engine-free. When the
+owner picks one of these, paste it under `### Engine` in `docs/design/tech.md` and fill its `<fill: ...>` bits. Commands change
+between versions, so run each one with the engine's `--help` or once for real, and record the version and the command that
+worked. Then call the test command from the project's test script. For another engine, write the same six labels by hand.
+
 ## Stage 8: choosing methods
 
 `templates/process/README.md` lists them all, and each template's first lines say when to use it and which genres can
 skip it. Always keep the index, `art-style.md`, `teaching-and-text.md` and `sound-design.md`. Keep the rest by what the
 core loop needs: a puzzle game needs `puzzle-design.md`, a run-based game needs `procgen-design.md`, and so on. Delete the
-others, with their rows in the index. Fill each `<fill: ...>` you can, and leave the others as open questions.
+others, with their rows in the index. Keep `telemetry.md` when the game has an economy or a difficulty curve to tune, and copy `${CLAUDE_PLUGIN_ROOT}/scripts/telemetry-summary.py` to the project's `scripts/` with it. Fill each `<fill: ...>` you can, and leave the others as open questions.
 
 ## Stage 10: the team
 

@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eval report — game-dev v0.1.6</title>
+</head>
+<body>
+<style>
+:root{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){:root{--plane:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#898781;--hairline:rgba(255,255,255,.10);--grid:#2c2c2a;--inset:rgba(255,255,255,.05);--accent:#3987e5;--base-fill:#898781;--delta-good:#0ca30c;--good:#0ca30c;--warning:#fab219;--critical:#e06c6c;color-scheme:dark}}
+:root[data-theme="dark"]{--plane:#0d0d0d;--surface:#1a1a19;--ink:#ffffff;--ink-2:#c3c2b7;--ink-3:#898781;--hairline:rgba(255,255,255,.10);--grid:#2c2c2a;--inset:rgba(255,255,255,.05);--accent:#3987e5;--base-fill:#898781;--delta-good:#0ca30c;--good:#0ca30c;--warning:#fab219;--critical:#e06c6c;color-scheme:dark}
+:root[data-theme="light"]{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);
+  font:14px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:880px;margin:0 auto;padding:40px 24px 64px;display:flex;flex-direction:column;gap:20px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+header h1{margin:2px 0 0;font-size:24px;font-weight:600;line-height:1.25;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;color:var(--ink-2);font-size:13px}
+.meta .num{font-variant-numeric:tabular-nums lining-nums}
+.banner{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;
+  border:1px solid var(--hairline);background:var(--surface);font-size:13px}
+.banner .chip-warn{color:var(--warning);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--hairline);border-radius:10px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:4px}
+.tile .label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.tile .value{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums lining-nums;line-height:1.1}
+.tile.hero .value{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:48px}
+.tile .sub{font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tile .value.delta-pos{color:var(--delta-good)}
+.tile .value.delta-neg{color:var(--critical)}
+.toolbar{display:flex;gap:8px;justify-content:flex-end}
+.toolbar button{font:12px system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--hairline);border-radius:6px;padding:4px 10px;cursor:pointer}
+.toolbar button:hover{color:var(--ink)}
+.toolbar button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.case{background:var(--surface);border:1px solid var(--hairline);border-radius:10px;padding:18px 20px;
+  display:flex;flex-direction:column;gap:10px}
+.case-regressed{border-left:3px solid var(--critical)}
+.verdict{margin:6px 0 0;font-size:15px}
+.verdict .delta{font-size:15px}
+.flag{font-size:11px;font-weight:600;color:var(--warning);white-space:nowrap}
+.star{color:var(--warning);font-size:.45em;vertical-align:super;line-height:0;cursor:help}
+.legend summary{cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.legend-list{margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--ink-2)}
+.case-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.case-head h2{margin:0;font-size:16px;font-weight:600}
+.case-head .spacer{flex:1}
+.case-score{font-size:15px;font-weight:600}
+.mono{font:12px "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.muted{color:var(--ink-3);font-size:12px}
+.meter{display:inline-block;position:relative;width:120px;height:6px;border-radius:4px;background:var(--grid);
+  vertical-align:middle}
+.meter>span{display:block;height:100%;border-radius:4px;max-width:100%}
+.meter .tick{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink-3);border-radius:1px}
+.m-accent>span{background:var(--accent)}
+.m-base>span{background:var(--base-fill)}
+.delta{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.delta-pos{color:var(--delta-good)}
+.delta-neg{color:var(--critical)}
+.delta-zero{color:var(--ink-3)}
+details.section{border-top:1px solid var(--grid);padding-top:10px}
+details.section>summary{cursor:pointer;font-size:12px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-2);list-style-position:outside;margin-left:2px}
+details.section>summary:hover{color:var(--ink)}
+details.section[open]>summary{margin-bottom:8px}
+.md{display:flex;flex-direction:column;gap:8px;background:var(--inset);border-radius:8px;
+  padding:12px 14px;overflow-wrap:break-word}
+.md>:first-child{margin-top:0}
+.md h1,.md h2,.md h3,.md h4,.md h5,.md h6{margin:4px 0 0;font-size:1em;font-weight:600;line-height:1.3}
+.md p,.md ul,.md ol,.md blockquote,.md table,.md pre,.md hr{margin:0}
+.md ul,.md ol{display:flex;flex-direction:column;gap:4px;padding-left:20px}
+.md blockquote{border-left:2px solid var(--hairline);padding-left:10px;color:var(--ink-2)}
+.md :not(pre)>code{background:var(--inset);padding:1px 4px;border-radius:4px;
+  font:.92em "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.md pre{background:var(--inset);border:1px solid var(--hairline);padding:10px 12px;border-radius:6px;
+  overflow-x:auto;font:12px/1.5 "SF Mono",ui-monospace,Menlo,Consolas,monospace}
+.md pre code{background:none;padding:0;font:inherit}
+.md table{width:100%;border-collapse:collapse}
+.md th,.md td{padding:5px 8px;text-align:left;vertical-align:top;border-bottom:1px solid var(--grid)}
+.md th{font-weight:600;color:var(--ink-2)}
+.md a{color:var(--accent);text-decoration:none}
+.md a:hover{text-decoration:underline}
+.grader-def{display:flex;flex-direction:column;gap:6px;padding:8px 0}
+.grader-def+.grader-def{border-top:1px solid var(--grid)}
+.grader-def-head{display:flex;align-items:baseline;gap:8px}
+.grader-name{font:13px "SF Mono",ui-monospace,Menlo,Consolas,monospace;font-weight:600}
+.badge{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);
+  border:1px solid var(--hairline);border-radius:999px;padding:1px 8px}
+.config{display:flex;flex-direction:column;gap:2px;background:var(--inset);border-radius:8px;padding:10px 14px}
+.config code{font:12px "SF Mono",ui-monospace,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+.arm{display:flex;flex-direction:column;gap:8px;padding:6px 0}
+.arm+.arm{border-top:1px dashed var(--grid);margin-top:4px;padding-top:12px}
+.arm-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.arm-label{font-size:13px;font-weight:600}
+.run{border:1px solid var(--grid);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.run-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.run-title{font-size:12px;font-weight:600;color:var(--ink-2)}
+.run-error .explanation{color:var(--ink-2)}
+.note{font-size:12px;color:var(--ink-2)}
+.graders{display:flex;flex-direction:column;gap:4px}
+details.grader{border-radius:6px}
+details.grader>summary{cursor:pointer;display:flex;align-items:baseline;gap:8px;padding:3px 4px;
+  border-radius:6px;list-style:none}
+details.grader>summary::-webkit-details-marker{display:none}
+details.grader>summary::before{content:'▸';font-size:10px;color:var(--ink-3);flex:none;
+  transition:transform .12s ease}
+details.grader[open]>summary::before{transform:rotate(90deg)}
+details.grader>summary:hover{background:var(--inset)}
+details.grader>summary:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.grader-body{padding:6px 8px 8px 24px;display:flex;flex-direction:column;gap:6px}
+.chip{font-size:11px;font-weight:600;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.chip-pass{color:var(--good);border:1px solid currentColor}
+.chip-fail{color:var(--critical);border:1px solid currentColor}
+.chip.chip-warn{color:var(--warning);border:1px solid currentColor}
+.explanation{margin:0;font-size:13px;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:break-word}
+.kv{display:flex;gap:8px;font-size:12px;color:var(--ink-3)}
+.votes{font-variant-numeric:tabular-nums;letter-spacing:.1em}
+pre.evidence{margin:0;background:var(--inset);border:1px solid var(--hairline);border-radius:6px;
+  padding:8px 10px;overflow-x:auto;max-height:320px;
+  font:12px/1.5 "SF Mono",ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:break-word}
+footer{color:var(--ink-3);font-size:12px;text-align:center;padding-top:8px}
+@media (prefers-reduced-motion:no-preference){
+  details.grader>summary,.toolbar button{transition:background .12s ease,color .12s ease}
+}
+@media (prefers-reduced-motion:reduce){
+  details.grader>summary::before{transition:none}
+}
+@media print{
+  :root,:root[data-theme="dark"],:root[data-theme="light"]{--plane:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--ink-3:#6b6a64;--hairline:rgba(11,11,11,.10);--grid:#e1e0d9;--inset:rgba(11,11,11,.04);--accent:#2a78d6;--base-fill:#6b6a64;--delta-good:#006300;--good:#067d06;--warning:#8a6100;--critical:#d03b3b;color-scheme:light}
+  body{background:#fff}
+  .toolbar{display:none}
+  .case,.run,.grader-def{break-inside:avoid}
+  pre.evidence{max-height:none}
+}
+</style>
+<div class="wrap">
+<header>
+<div class="eyebrow">Plugin eval report</div>
+<h1>game-dev v0.1.6</h1>
+<p class="verdict">Plugin effect: <span class="delta delta-pos">↑ +100.0 pts</span> vs baseline — improved 3 · flat 0 · regressed 0 of 3 cases.</p>
+<div class="meta">
+<span class="mono">.</span>
+<span>Claude Code v2.1.316</span>
+<span class="num">2026-11-07 13:07 UTC</span>
+<span class="num">42s</span>
+<span class="num">$0.53</span>
+<span class="num">6 runs</span>
+<span class="num">3 in flight</span>
+
+
+<span>judge default</span>
+<span class="num">threshold 100%</span>
+
+</div>
+</header>
+
+<section class="tiles">
+<div class="tile hero"><span class="label">Suite score · with plugin</span><span class="value">100%</span><span class="sub">mean of per-case scores</span></div>
+<div class="tile"><span class="label">Ablation Δ</span><span class="value num delta-pos">↑ +100.0</span><span class="sub">score points vs baseline, 3 of 3 cases</span></div>
+<div class="tile"><span class="label">Baseline score</span><span class="value num">0%</span><span class="sub">without the plugin</span></div>
+<div class="tile"><span class="label">Cases</span><span class="value num">3</span><span class="sub">3 of 3 ≥ 100% threshold</span></div>
+<div class="tile"><span class="label">Perfect runs</span><span class="value num">100%</span><span class="sub">runs where every grader passed</span></div>
+</section>
+<details class="section legend">
+<summary>How to read this report</summary>
+<ul class="legend-list">
+<li>A run's score is the weighted fraction of its graders that passed; a "perfect" run passed every grader.</li>
+<li>A case's score is the mean of its runs; a case passes when its score is at or above the 100% threshold (the tick on each case bar).</li>
+<li>The suite score is the mean of the per-case scores.</li>
+<li>Judge votes are independent samples of the LLM judge; the majority decides pass or fail.</li>
+<li>"With plugin" and "Baseline" runs are identical except for the plugin being loaded; Δ is the with-plugin score minus the baseline score.</li>
+
+</ul>
+</details>
+<div class="toolbar"><button type="button" data-act="expand">Expand all</button><button type="button" data-act="collapse">Collapse all</button></div>
+<article class="case" id="case-1">
+<div class="case-head">
+<h2>close-runs-checks-and-reviewers</h2>
+<span class="muted mono">evals/close-runs-checks-and-reviewers</span>
+<span class="spacer"></span>
+
+<span class="delta delta-pos">↑ +100.0 pts</span>
+<span class="muted">with plugin</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">With plugin</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">3 turns · $0.09 · 13:07:48 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">This uses the project&apos;s `game-dev:close` process. In order:
+
+1. **Run the close-out check.** From the repo root I&apos;d run `close-task.py KEY-5` (the plugin&apos;s script). It checks the branch against the design docs and prints `OK`, `FIX` and `TODO` lines. It exits with an error if there&apos;s any `FIX`.
+
+2. **Fix every `FIX` line.** Usually this means:
+   - Marking each item KEY-5 built as **[Built, KEY-5]** where it lives in `docs/design/`.
+   - Updating `docs/design/status.md` and the &quot;Where we are&quot; section of `plan.md`.
+   - Logging anything built without one of your rulings in `decisions.md`, or marking it *(builder&apos;s call)*. I wouldn&apos;t decide those myself; I&apos;d show them to you.
+
+   Then I&apos;d re-run the script until no `FIX` lines remain.
+
+3. **Do the `TODO` lines.** I&apos;d update any catalogues KEY-5 touched. If players will see the change, I&apos;d run a blind playtest with the `game-dev:playtester` agent. It gets only the controls sheet, a goal and a move limit, and isn&apos;t told what changed. Its &quot;Worth doing&quot; findings go under &quot;Optional&quot; in the plan file.
+
+4. **Review.** I&apos;d run `game-dev:code-reviewer` (code against the architecture rules) and `game-dev:design-guardian` (the work against the design docs and rulings) at the same time. Any fixes go back to whichever role did that part of the work, and I&apos;d re-run only the reviewer whose area changed.
+
+5. **Write the PR body** in the format your `CLAUDE.md` asks for: the task, what changed and why, Tests and Demo. It will say plainly what wasn&apos;t run.
+
+6. **Mark the PR ready**, but only once step 4 comes back clean. I won&apos;t merge it; that&apos;s your call.
+
+Say the word and I&apos;ll start with step 1.</pre>
+</div>
+</details></div>
+</div>
+</section><section class="arm">
+<div class="arm-head">
+<span class="arm-label">Baseline (no plugin)</span>
+<span class="meter m-base" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">0% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-base" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">4 turns · $0.07 · 13:07:48 UTC</span>
+</div>
+
+<div class="graders"><details class="grader" open>
+<summary><span class="chip chip-fail">✗ fail</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: FAIL FAIL FAIL</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✗ ✗ ✗</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">I checked the working directory first, and it doesn&apos;t contain KEY-5&apos;s work. The repo on `main` has no commits and no files: no CLAUDE.md, no CONTRIBUTING guide, no `.github/` templates. So I can&apos;t see your team&apos;s conventions, and the plan below is the usual flow. Before I run anything, I need to know where the KEY-5 branch lives (another clone or a remote) and which tracker KEY-5 is in (Jira, Linear, etc.).
+
+**1. Find the work**
+- Go to the clone that has the KEY-5 branch, or fetch it from the remote.
+- Run `git status` and `git log main..HEAD` to confirm everything is committed and the commits are the ones you expect.
+
+**2. Check the branch is ready**
+- Rebase onto (or merge) the latest `main` and fix any conflicts.
+- Run the project&apos;s tests, lint and type checks locally.
+- Optionally, run `/code-review` on the diff for a last look at correctness.
+
+**3. Push**
+- `git push`. If I rebased, I&apos;d use `--force-with-lease`, and only after checking with you, since it rewrites the remote branch.
+
+**4. Update the PR**
+- Find it with `gh pr list --head &lt;branch&gt;` or `gh pr view`.
+- Make sure the title and description mention KEY-5 so the tracker links it (e.g. &quot;KEY-5: …&quot;). Fill in any summary or testing notes.
+- Confirm CI passes on the latest push (`gh pr checks`).
+
+**5. Mark it ready**
+- `gh pr ready &lt;number&gt;` takes it out of draft. Then request reviewers if your team expects specific ones.
+
+**6. Update the tracker**
+- Move KEY-5 to &quot;In Review&quot; now. Move it to &quot;Done&quot; when the PR merges, unless your tracker&apos;s integration does this automatically.
+
+Steps 3, 5 and 6 change things other people can see, so I&apos;ll check with you before each one. Tell me where the KEY-5 branch is and which tracker you use, and I&apos;ll start with steps 1–2, which only read and check.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>I've finished task KEY-5 and want to mark its PR ready. How do we close it out? Describe the steps you would take, in
+order. Don't run anything yet.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>The response follows the game-dev <code>close</code> skill. It passes only if ALL are true:</p>
+<ul>
+<li>It runs, or says it will run, the <code>close-task.py</code> script with the task key first, and fixes what it reports before
+anything else.</li>
+<li>It marks the task's items as built in the design (<code>[Built, KEY-5]</code>) and updates the status.</li>
+<li>It runs both <code>game-dev:code-reviewer</code> and <code>game-dev:design-guardian</code> before the PR is marked ready.</li>
+<li>It does not merge the PR, and does not mark it ready before the reviewers are clean.</li>
+</ul>
+</div>
+</div>
+</details>
+</article>
+<article class="case" id="case-2">
+<div class="case-head">
+<h2>decide-needs-owners-words</h2>
+<span class="muted mono">evals/decide-needs-owners-words</span>
+<span class="spacer"></span>
+
+<span class="delta delta-pos">↑ +100.0 pts</span>
+<span class="muted">with plugin</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">With plugin</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">5 turns · $0.10 · 13:07:48 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: FAIL PASS PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✗ ✓ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">I&apos;d record this with the `decide` workflow, but this repo has nothing in it yet. The working directory (`/private/tmp/e-UzjIIY/home/cwd`) contains no files: no `docs/design/decisions.md`, no design docs, no game. So I can&apos;t find the open question to close or the design items it settles.
+
+**How I&apos;d record it, once the design docs exist:**
+
+1. **Log the ruling.** I&apos;d run the plugin&apos;s `decide.py` with the open decision&apos;s id, ruling &quot;Keys carry between rooms&quot;, your exact words as the quote, and the files the ruling affects. It adds a row under &quot;Rulings&quot; in `docs/design/decisions.md` and removes the matching open decision.
+2. **Relabel the settled items.** In each of those files, I&apos;d move the items this ruling settles from **[Draft]** to **[Approved]** and quote you there. If anything says otherwise (for example, an item that says keys are lost or reset when you leave a room, or an earlier ruling), I&apos;d fix both in the same change and point it out to you.
+3. **Check.** I&apos;d run `check-design.py`, then `design-status.py` to show what&apos;s still open.
+4. **Commit.** All of it would go in one commit on a `feature/` branch.
+
+**What I need from you:**
+
+- **Where the design lives.** Is the game in a different directory, or does this repo still need setting up (`/game-dev:kickstart` for a new game, `/game-dev:migrate` for an existing one)?
+- **Your exact words.** A ruling is recorded with your own wording as the quote. Is &quot;keys carry between rooms&quot; how you want it quoted, or did you say it differently when you decided?
+- **The scope.** Do all keys carry, or only some kinds? Do they carry between floors or areas too, or only between rooms? Is a key used up when it opens a door? If you haven&apos;t decided these, I&apos;ll record only what you&apos;ve ruled and leave the rest as open questions.</pre>
+</div>
+</details></div>
+</div>
+</section><section class="arm">
+<div class="arm-head">
+<span class="arm-label">Baseline (no plugin)</span>
+<span class="meter m-base" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">0% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-base" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">6 turns · $0.08 · 13:08:04 UTC</span>
+</div>
+
+<div class="graders"><details class="grader" open>
+<summary><span class="chip chip-fail">✗ fail</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: FAIL FAIL FAIL</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✗ ✗ ✗</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">I couldn&apos;t find a design document. The working directory (`/private/tmp/e-jIOOGm/home/cwd`) is empty, the repo root above it only has `.gitconfig` and git metadata, and I don&apos;t have permission to read my memory directory, so I can&apos;t check for notes from earlier sessions.
+
+**How I&apos;d record it** (once I have the doc):
+1. **Close the open question where it&apos;s listed.** I&apos;d mark it resolved instead of deleting it, so the history stays: &quot;~~Do keys carry between rooms?~~ **Resolved 2026-11-07: yes.**&quot;
+2. **Write the rule into the section on keys, inventory or rooms**, for example: &quot;Keys stay in the player&apos;s inventory when they leave a room. A key picked up in one room can open matching locks in any other room.&quot;
+3. **Note any knock-on effects** the doc already raises, such as save state, level design assumptions, or whether keys are used up.
+
+**What I need from you:**
+- **Where the design doc is.** Give me a path, or tell me it&apos;s somewhere I can&apos;t see (Notion, Google Docs, etc.). If there isn&apos;t one yet, I can create one, such as `DESIGN.md`, but you&apos;d need to say where.
+- **The details of the ruling.** &quot;Keys carry between rooms&quot; leaves some things open. Is a key used up when it opens a lock, or kept? Can any key open any lock, or does each key match specific doors? Does the rule hold across levels or areas, or only between rooms in one level? Does dying or restarting a room take away keys picked up there? I&apos;ll only write down what you actually decided and won&apos;t fill these in with guesses.
+- **Optional:** the reason you chose this (one line), which is worth keeping next to the ruling.
+
+Also, should I save this ruling to memory so it carries into future sessions? I&apos;d need write access to the memory directory for that.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>We settled the open question about whether keys carry between rooms: they do. Record that ruling in the design for me.
+Don't change files yet: tell me how you'd record it and what you need.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>A ruling is only the owner's own words. It passes only if ALL are true:</p>
+<ul>
+<li>It uses or follows the <code>decide</code> skill (decisions.md, a Rulings entry, relabelling the touched items).</li>
+<li>It asks the user for their exact words, or says it needs the owner's quote, instead of inventing or paraphrasing one as
+if the owner said it.</li>
+<li>It does not claim to have recorded anything yet.</li>
+</ul>
+</div>
+</div>
+</details>
+</article>
+<article class="case" id="case-3">
+<div class="case-head">
+<h2>upgrade-proposes-not-overwrites</h2>
+<span class="muted mono">evals/upgrade-proposes-not-overwrites</span>
+<span class="spacer"></span>
+
+<span class="delta delta-pos">↑ +100.0 pts</span>
+<span class="muted">with plugin</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span><i class="tick" style="left:100.0%"></i></span>
+<span class="num case-score">100%</span>
+</div>
+
+<details class="section" open>
+<summary>Results</summary>
+<section class="arm">
+<div class="arm-head">
+<span class="arm-label">With plugin</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">100% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-accent" aria-hidden="true"><span style="width:100.0%"></span></span>
+<span class="num">100%</span>
+<span class="muted num">7 turns · $0.12 · 13:08:08 UTC</span>
+</div>
+
+<div class="graders"><details class="grader">
+<summary><span class="chip chip-pass">✓ pass</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: PASS FAIL PASS</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✓ ✗ ✓</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">I didn&apos;t change anything, and there&apos;s nothing here to upgrade yet. The working directory (`/private/tmp/e-qOW9rX/home/cwd`) is empty. It has no `CLAUDE.md`, no `scripts/`, and no `docs/design`, `docs/process` or `docs/team`. The git repo above it has no commits either. The upgrade compares a game&apos;s copies of the plugin&apos;s templates against the new plugin versions. With no copies here, every template would show up as &quot;missing&quot;, and that&apos;s a fresh setup, not an upgrade.
+
+**What the upgrade would do once we&apos;re in your game&apos;s repo.** Nothing gets changed without your yes on each item.
+
+1. **List the differences.** I&apos;d run the plugin&apos;s `upgrade-diff.py` from the repo root. It changes nothing and reports three things:
+   - Scripts that differ from the plugin&apos;s copies: `check-team.py`, `check-design.py`, and `telemetry-summary.py` if you use telemetry.
+   - Template files your game doesn&apos;t have.
+   - `##` sections in the templates that your `CLAUDE.md`, method docs or team docs don&apos;t have.
+2. **Propose each change and wait for your answer:**
+   - **Out-of-date scripts:** copy the plugin&apos;s version over yours, then put your game&apos;s `PLANNED` entries back.
+   - **New template files:** explain what each one is for and whether your game needs it. Small games usually skip most. I&apos;d copy only the ones you want and link them from the routing table or methods index.
+   - **Missing sections:** compare the template&apos;s section with your file and add it only if it fits your game, kept short. Where the wording differs, yours stays.
+3. **Check:** run `scripts/check-team.py` and `scripts/check-design.py`.
+4. **Deliver:** put the whole upgrade in one PR on a `feature/` branch, listing what was added and what you declined.
+
+**Which of these do you mean?**
+- **Your game is in another folder:** give me the path and I&apos;ll run step 1 there and show you the results before changing anything.
+- **This is meant to be a new game:** the right command is `/game-dev:kickstart` for a brand-new game, or `/game-dev:migrate` for an existing game you want to bring onto the setup.</pre>
+</div>
+</details></div>
+</div>
+</section><section class="arm">
+<div class="arm-head">
+<span class="arm-label">Baseline (no plugin)</span>
+<span class="meter m-base" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">0% of runs perfect</span>
+</div>
+<div class="run">
+<div class="run-head">
+<span class="run-title">Run 1</span>
+<span class="meter m-base" aria-hidden="true"><span style="width:0.0%"></span></span>
+<span class="num">0%</span>
+<span class="muted num">5 turns · $0.07 · 13:08:12 UTC</span>
+</div>
+
+<div class="graders"><details class="grader" open>
+<summary><span class="chip chip-fail">✗ fail</span> <span class="grader-name">criteria</span>  </summary>
+<div class="grader-body">
+<p class="explanation">judge votes: FAIL FAIL FAIL</p>
+<div class="kv"><span>Judge votes</span><span class="votes">✗ ✗ ✗</span></div><div class="kv"><span>Evidence (what the judge was shown; for an image, a description of what was sent)</span></div><pre class="evidence">I haven&apos;t changed anything. I looked first, and I can&apos;t find either the game or the plugin, so I don&apos;t have a plan to give you yet.
+
+**What I checked:**
+- **Your working directory** (`/private/tmp/e-JmL5Sz/home/cwd`): it&apos;s empty. There&apos;s no game project, engine config or asset folders. The git repo has no commits, and the only untracked file is `../.gitconfig`.
+- **The home directory**: no files mention &quot;game&quot; and there&apos;s no `.claude/` folder.
+- **The plugin**: there&apos;s no game-dev skill or command in this session, so I can&apos;t read the updated plugin to see what changed or what setup it expects.
+- **The Claude config directory**: I was denied permission to read it. If the plugin is installed, it&apos;s probably there.
+
+**To get going, I need one of these:**
+1. **Where your game is.** If it&apos;s in another directory, tell me the path or start the session from there.
+2. **Access to the plugin.** Either allow reading the config directory or point me to the plugin&apos;s files (README or changelog). Pasting the release notes also works.
+3. **Whether the plugin is enabled.** If it isn&apos;t, enable it and restart the session so its skills show up.
+
+Once I can see the project and the plugin&apos;s new requirements, I&apos;ll compare the two and tell you exactly what I&apos;d change before touching anything.</pre>
+</div>
+</details></div>
+</div>
+</section>
+</details>
+<details class="section" open>
+<summary>Prompt</summary>
+<div class="md"><p>The game-dev plugin was just updated. Bring my game's setup up to date with it. Describe what you will do before touching
+anything.</p>
+</div>
+</details>
+<details class="section" open>
+<summary>Graders — what "good" means for this case</summary>
+<div class="grader-def">
+<div class="grader-def-head"><span class="grader-name">criteria</span><span class="badge">llm</span></div>
+<div class="md"><p>The response follows the game-dev <code>upgrade</code> skill. It passes only if ALL are true:</p>
+<ul>
+<li>It runs, or says it will run, the <code>upgrade-diff.py</code> script to see what is out of date, rather than guessing.</li>
+<li>It proposes each change for the owner's approval and waits, and says the game's own wording wins over the template.</li>
+<li>It does not say it will overwrite the game's files wholesale, and does not claim to have changed anything.</li>
+</ul>
+</div>
+</div>
+</details>
+</article>
+<footer>Generated by <code>claude plugin eval</code> · schema v1 · scores are not comparable across different suites</footer>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var bar=document.querySelector('.toolbar');
+  if(!bar)return;
+  bar.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest('button');
+    if(!b)return;
+    var open=b.dataset.act==='expand';
+    document.querySelectorAll('details.section, details.grader').forEach(function(d){d.open=open});
+  });
+});
+// Collapsed details vanish from print/PDF; these pages are share artifacts.
+window.addEventListener('beforeprint',function(){
+  document.querySelectorAll('details').forEach(function(d){
+    if(!d.open){d.dataset.printOpened='1';d.open=true}
+  });
+});
+window.addEventListener('afterprint',function(){
+  document.querySelectorAll('details[data-print-opened]').forEach(function(d){
+    d.open=false;delete d.dataset.printOpened;
+  });
+});
+</script>
+</body>
+</html>

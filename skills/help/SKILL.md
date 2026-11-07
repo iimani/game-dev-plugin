@@ -23,6 +23,7 @@ If the user asked about one thing, answer only that.
 | `/game-dev:choose-art-style` | Pick or change the art style, by testing the same scene in each |
 | `/game-dev:choose-models` | See the recommended model for each role, and change them |
 | `/game-dev:plan-phase` | Plan the next phase, write its plan file and cut tasks |
+| `/game-dev:playtest` | Run a blind playtest of a change: brief the tester, sort findings, fix critical ones, rank the rest |
 | `/game-dev:close` | Close a task: check it against the design, mark items Built, run the reviewers |
 | `/game-dev:decide` | Record an owner's ruling in `decisions.md` and relabel what it settles |
 | `/game-dev:upgrade` | Bring a game's copies of the templates up to date with the plugin |
