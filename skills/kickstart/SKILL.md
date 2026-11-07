@@ -84,7 +84,7 @@ Do the same for a big design phase later on. Images go in the repo, so `docs/des
 `templates/process/README.md` lists them all, and each template's first lines say when to use it and which genres can
 skip it. Always keep the index, `art-style.md`, `teaching-and-text.md` and `sound-design.md`. Keep the rest by what the
 core loop needs: a puzzle game needs `puzzle-design.md`, a run-based game needs `procgen-design.md`, and so on. Delete the
-others, with their rows in the index. Fill each `<fill: ...>` you can, and leave the others as open questions.
+others, with their rows in the index. Keep `telemetry.md` when the game has an economy or a difficulty curve to tune, and copy `${CLAUDE_PLUGIN_ROOT}/scripts/telemetry-summary.py` to the project's `scripts/` with it. Fill each `<fill: ...>` you can, and leave the others as open questions.
 
 ## Stage 10: the team
 

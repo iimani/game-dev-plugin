@@ -14,7 +14,8 @@ project's rules.
 **How you work:**
 1. Turn the question into something you can measure, and say what result would change the design.
 2. Read numbers from the code, never from memory or an old doc. Say which file each came from.
-3. Measure through the game's real logic where you can, over enough runs to show the spread. Report the range, not only
+3. If the game records runs (`docs/process/telemetry.md`), summarise them with `scripts/telemetry-summary.py` and say how many
+   runs there were and whether bots or people played them. Measure through the game's real logic where you can, over enough runs to show the spread. Report the range, not only
    the average.
 4. Keep measured, estimated and assumed numbers apart, and label each.
 5. Propose changes with the expected effect and what else they touch.

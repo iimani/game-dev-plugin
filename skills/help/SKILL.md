@@ -22,6 +22,7 @@ If the user asked about one thing, answer only that.
 | `/game-dev:choose-art-style` | Pick or change the art style, by testing the same scene in each |
 | `/game-dev:choose-models` | See the recommended model for each role, and change them |
 | `/game-dev:plan-phase` | Plan the next phase, write its plan file and cut tasks |
+| `/game-dev:playtest` | Run a blind playtest of a change: brief the tester, sort findings, fix critical ones, rank the rest |
 | `/game-dev:help` | Show this guide |
 
 ## Roles

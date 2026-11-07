@@ -23,7 +23,8 @@ at kickstart and belong to it from then on.
 - `migrate` brings an existing game onto this setup, without losing anything.
 - `choose-art-style` picks a style and tool by making the same test asset in each and judging it on the real screen.
 - `choose-models` recommends a model for each role, and records the owner's choice. `kickstart` and `migrate` run it.
-- `plan-phase` plans the next phase, writes its plan file and cuts tasks.
+- `plan-phase` plans the next phase, writes its plan file and cuts tasks. It checks the plan against the phase's exit.
+- `playtest` runs one blind playtest from build to verdict: brief the tester, sort findings, fix the critical ones.
 - `help` shows the commands and roles, and says what to do next in this repo.
 
 **The method:**
@@ -47,6 +48,12 @@ Keep it at user scope, as above: a project-scope install is tied to one folder.
 Then run `/game-dev:help` in a game's repo. It says whether to kick off a new game or migrate an existing one.
 
 Plugins declared in a repo's settings don't load in cloud sessions. Use a local session for this team.
+
+## Telemetry
+
+`skills/kickstart/templates/process/telemetry.md` defines a small run-recording format (JSON lines: places, deaths, items,
+how runs ended). `scripts/telemetry-summary.py` summarises it, and `balance-analyst` reads it, so balance claims rest on
+runs and their spread.
 
 ## Art and sound tools
 
