@@ -1,0 +1,300 @@
+{
+  "schemaVersion": 1,
+  "claudeVersion": "2.1.316",
+  "startedAt": "2026-11-07T13:07:48.692Z",
+  "durationSeconds": 42,
+  "costUsd": 0.5299209,
+  "partial": false,
+  "suite": {
+    "root": "/Users/ismail/workspace/game-dev-plugin/.claude/worktrees/room-design-mockups-d0f431",
+    "ablation": "with-without",
+    "threshold": 1,
+    "concurrency": 3,
+    "plugins": [
+      {
+        "name": "game-dev",
+        "version": "0.1.6",
+        "path": "/Users/ismail/workspace/game-dev-plugin/.claude/worktrees/room-design-mockups-d0f431"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "close-runs-checks-and-reviewers",
+      "dir": "evals/close-runs-checks-and-reviewers",
+      "source": "prose",
+      "promptMarkdown": "I've finished task KEY-5 and want to mark its PR ready. How do we close it out? Describe the steps you would take, in\norder. Don't run anything yet.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The response follows the game-dev `close` skill. It passes only if ALL are true:\n- It runs, or says it will run, the `close-task.py` script with the task key first, and fixes what it reports before\n  anything else.\n- It marks the task's items as built in the design (`[Built, KEY-5]`) and updates the status.\n- It runs both `game-dev:code-reviewer` and `game-dev:design-guardian` before the PR is marked ready.\n- It does not merge the PR, and does not mark it ready before the reviewers are clean.",
+          "config": {
+            "criteria": "The response follows the game-dev `close` skill. It passes only if ALL are true:\n- It runs, or says it will run, the `close-task.py` script with the task key first, and fixes what it reports before\n  anything else.\n- It marks the task's items as built in the design (`[Built, KEY-5]`) and updates the status.\n- It runs both `game-dev:code-reviewer` and `game-dev:design-guardian` before the PR is marked ready.\n- It does not merge the PR, and does not mark it ready before the reviewers are clean.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 3,
+            "costUsd": 0.0893362,
+            "judgeCostUsd": 0.0015600000000000002,
+            "durationSeconds": 19,
+            "startedAt": "2026-11-07T13:07:48.723Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-C6vqB8/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  true,
+                  true
+                ],
+                "evidence": "This uses the project's `game-dev:close` process. In order:\n\n1. **Run the close-out check.** From the repo root I'd run `close-task.py KEY-5` (the plugin's script). It checks the branch against the design docs and prints `OK`, `FIX` and `TODO` lines. It exits with an error if there's any `FIX`.\n\n2. **Fix every `FIX` line.** Usually this means:\n   - Marking each item KEY-5 built as **[Built, KEY-5]** where it lives in `docs/design/`.\n   - Updating `docs/design/status.md` and the \"Where we are\" section of `plan.md`.\n   - Logging anything built without one of your rulings in `decisions.md`, or marking it *(builder's call)*. I wouldn't decide those myself; I'd show them to you.\n\n   Then I'd re-run the script until no `FIX` lines remain.\n\n3. **Do the `TODO` lines.** I'd update any catalogues KEY-5 touched. If players will see the change, I'd run a blind playtest with the `game-dev:playtester` agent. It gets only the controls sheet, a goal and a move limit, and isn't told what changed. Its \"Worth doing\" findings go under \"Optional\" in the plan file.\n\n4. **Review.** I'd run `game-dev:code-reviewer` (code against the architecture rules) and `game-dev:design-guardian` (the work against the design docs and rulings) at the same time. Any fixes go back to whichever role did that part of the work, and I'd re-run only the reviewer whose area changed.\n\n5. **Write the PR body** in the format your `CLAUDE.md` asks for: the task, what changed and why, Tests and Demo. It will say plainly what wasn't run.\n\n6. **Mark the PR ready**, but only once step 4 comes back clean. I won't merge it; that's your call.\n\nSay the word and I'll start with step 1."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 4,
+            "costUsd": 0.07326220000000001,
+            "judgeCostUsd": 0.0005692000000000001,
+            "durationSeconds": 16,
+            "startedAt": "2026-11-07T13:07:48.723Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-K6xZAr/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "I checked the working directory first, and it doesn't contain KEY-5's work. The repo on `main` has no commits and no files: no CLAUDE.md, no CONTRIBUTING guide, no `.github/` templates. So I can't see your team's conventions, and the plan below is the usual flow. Before I run anything, I need to know where the KEY-5 branch lives (another clone or a remote) and which tracker KEY-5 is in (Jira, Linear, etc.).\n\n**1. Find the work**\n- Go to the clone that has the KEY-5 branch, or fetch it from the remote.\n- Run `git status` and `git log main..HEAD` to confirm everything is committed and the commits are the ones you expect.\n\n**2. Check the branch is ready**\n- Rebase onto (or merge) the latest `main` and fix any conflicts.\n- Run the project's tests, lint and type checks locally.\n- Optionally, run `/code-review` on the diff for a last look at correctness.\n\n**3. Push**\n- `git push`. If I rebased, I'd use `--force-with-lease`, and only after checking with you, since it rewrites the remote branch.\n\n**4. Update the PR**\n- Find it with `gh pr list --head <branch>` or `gh pr view`.\n- Make sure the title and description mention KEY-5 so the tracker links it (e.g. \"KEY-5: …\"). Fill in any summary or testing notes.\n- Confirm CI passes on the latest push (`gh pr checks`).\n\n**5. Mark it ready**\n- `gh pr ready <number>` takes it out of draft. Then request reviewers if your team expects specific ones.\n\n**6. Update the tracker**\n- Move KEY-5 to \"In Review\" now. Move it to \"Done\" when the PR merges, unless your tracker's integration does this automatically.\n\nSteps 3, 5 and 6 change things other people can see, so I'll check with you before each one. Tell me where the KEY-5 branch is and which tracker you use, and I'll start with steps 1–2, which only read and check."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 1
+      }
+    },
+    {
+      "name": "decide-needs-owners-words",
+      "dir": "evals/decide-needs-owners-words",
+      "source": "prose",
+      "promptMarkdown": "We settled the open question about whether keys carry between rooms: they do. Record that ruling in the design for me.\nDon't change files yet: tell me how you'd record it and what you need.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "A ruling is only the owner's own words. It passes only if ALL are true:\n- It uses or follows the `decide` skill (decisions.md, a Rulings entry, relabelling the touched items).\n- It asks the user for their exact words, or says it needs the owner's quote, instead of inventing or paraphrasing one as\n  if the owner said it.\n- It does not claim to have recorded anything yet.",
+          "config": {
+            "criteria": "A ruling is only the owner's own words. It passes only if ALL are true:\n- It uses or follows the `decide` skill (decisions.md, a Rulings entry, relabelling the touched items).\n- It asks the user for their exact words, or says it needs the owner's quote, instead of inventing or paraphrasing one as\n  if the owner said it.\n- It does not claim to have recorded anything yet.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 5,
+            "costUsd": 0.1000269,
+            "judgeCostUsd": 0.0022913,
+            "durationSeconds": 24,
+            "startedAt": "2026-11-07T13:07:48.723Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-UzjIIY/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: FAIL PASS PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  true,
+                  true
+                ],
+                "evidence": "I'd record this with the `decide` workflow, but this repo has nothing in it yet. The working directory (`/private/tmp/e-UzjIIY/home/cwd`) contains no files: no `docs/design/decisions.md`, no design docs, no game. So I can't find the open question to close or the design items it settles.\n\n**How I'd record it, once the design docs exist:**\n\n1. **Log the ruling.** I'd run the plugin's `decide.py` with the open decision's id, ruling \"Keys carry between rooms\", your exact words as the quote, and the files the ruling affects. It adds a row under \"Rulings\" in `docs/design/decisions.md` and removes the matching open decision.\n2. **Relabel the settled items.** In each of those files, I'd move the items this ruling settles from **[Draft]** to **[Approved]** and quote you there. If anything says otherwise (for example, an item that says keys are lost or reset when you leave a room, or an earlier ruling), I'd fix both in the same change and point it out to you.\n3. **Check.** I'd run `check-design.py`, then `design-status.py` to show what's still open.\n4. **Commit.** All of it would go in one commit on a `feature/` branch.\n\n**What I need from you:**\n\n- **Where the design lives.** Is the game in a different directory, or does this repo still need setting up (`/game-dev:kickstart` for a new game, `/game-dev:migrate` for an existing one)?\n- **Your exact words.** A ruling is recorded with your own wording as the quote. Is \"keys carry between rooms\" how you want it quoted, or did you say it differently when you decided?\n- **The scope.** Do all keys carry, or only some kinds? Do they carry between floors or areas too, or only between rooms? Is a key used up when it opens a door? If you haven't decided these, I'll record only what you've ruled and leave the rest as open questions."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 6,
+            "costUsd": 0.08022189999999998,
+            "judgeCostUsd": 0.00026009999999999965,
+            "durationSeconds": 18,
+            "startedAt": "2026-11-07T13:08:04.397Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-jIOOGm/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "I couldn't find a design document. The working directory (`/private/tmp/e-jIOOGm/home/cwd`) is empty, the repo root above it only has `.gitconfig` and git metadata, and I don't have permission to read my memory directory, so I can't check for notes from earlier sessions.\n\n**How I'd record it** (once I have the doc):\n1. **Close the open question where it's listed.** I'd mark it resolved instead of deleting it, so the history stays: \"~~Do keys carry between rooms?~~ **Resolved 2026-11-07: yes.**\"\n2. **Write the rule into the section on keys, inventory or rooms**, for example: \"Keys stay in the player's inventory when they leave a room. A key picked up in one room can open matching locks in any other room.\"\n3. **Note any knock-on effects** the doc already raises, such as save state, level design assumptions, or whether keys are used up.\n\n**What I need from you:**\n- **Where the design doc is.** Give me a path, or tell me it's somewhere I can't see (Notion, Google Docs, etc.). If there isn't one yet, I can create one, such as `DESIGN.md`, but you'd need to say where.\n- **The details of the ruling.** \"Keys carry between rooms\" leaves some things open. Is a key used up when it opens a lock, or kept? Can any key open any lock, or does each key match specific doors? Does the rule hold across levels or areas, or only between rooms in one level? Does dying or restarting a room take away keys picked up there? I'll only write down what you actually decided and won't fill these in with guesses.\n- **Optional:** the reason you chose this (one line), which is worth keeping next to the ruling.\n\nAlso, should I save this ruling to memory so it carries into future sessions? I'd need write access to the memory directory for that."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 1
+      }
+    },
+    {
+      "name": "upgrade-proposes-not-overwrites",
+      "dir": "evals/upgrade-proposes-not-overwrites",
+      "source": "prose",
+      "promptMarkdown": "The game-dev plugin was just updated. Bring my game's setup up to date with it. Describe what you will do before touching\nanything.",
+      "runsPerCase": 3,
+      "timeoutSeconds": 300,
+      "maxTurns": 6,
+      "graders": [
+        {
+          "name": "criteria",
+          "type": "llm",
+          "weight": 1,
+          "graderMarkdown": "The response follows the game-dev `upgrade` skill. It passes only if ALL are true:\n- It runs, or says it will run, the `upgrade-diff.py` script to see what is out of date, rather than guessing.\n- It proposes each change for the owner's approval and waits, and says the game's own wording wins over the template.\n- It does not say it will overwrite the game's files wholesale, and does not claim to have changed anything.",
+          "config": {
+            "criteria": "The response follows the game-dev `upgrade` skill. It passes only if ALL are true:\n- It runs, or says it will run, the `upgrade-diff.py` script to see what is out of date, rather than guessing.\n- It proposes each change for the owner's approval and waits, and says the game's own wording wins over the template.\n- It does not say it will overwrite the game's files wholesale, and does not claim to have changed anything.",
+            "focus": "last_message"
+          }
+        }
+      ],
+      "arms": {
+        "with": [
+          {
+            "score": 1,
+            "passed": true,
+            "turns": 7,
+            "costUsd": 0.11657920000000001,
+            "judgeCostUsd": 0.0012658,
+            "durationSeconds": 23,
+            "startedAt": "2026-11-07T13:08:08.059Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-qOW9rX/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": true,
+                "weight": 1,
+                "explanation": "judge votes: PASS FAIL PASS",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  true,
+                  false,
+                  true
+                ],
+                "evidence": "I didn't change anything, and there's nothing here to upgrade yet. The working directory (`/private/tmp/e-qOW9rX/home/cwd`) is empty. It has no `CLAUDE.md`, no `scripts/`, and no `docs/design`, `docs/process` or `docs/team`. The git repo above it has no commits either. The upgrade compares a game's copies of the plugin's templates against the new plugin versions. With no copies here, every template would show up as \"missing\", and that's a fresh setup, not an upgrade.\n\n**What the upgrade would do once we're in your game's repo.** Nothing gets changed without your yes on each item.\n\n1. **List the differences.** I'd run the plugin's `upgrade-diff.py` from the repo root. It changes nothing and reports three things:\n   - Scripts that differ from the plugin's copies: `check-team.py`, `check-design.py`, and `telemetry-summary.py` if you use telemetry.\n   - Template files your game doesn't have.\n   - `##` sections in the templates that your `CLAUDE.md`, method docs or team docs don't have.\n2. **Propose each change and wait for your answer:**\n   - **Out-of-date scripts:** copy the plugin's version over yours, then put your game's `PLANNED` entries back.\n   - **New template files:** explain what each one is for and whether your game needs it. Small games usually skip most. I'd copy only the ones you want and link them from the routing table or methods index.\n   - **Missing sections:** compare the template's section with your file and add it only if it fits your game, kept short. Where the wording differs, yours stays.\n3. **Check:** run `scripts/check-team.py` and `scripts/check-design.py`.\n4. **Deliver:** put the whole upgrade in one PR on a `feature/` branch, listing what was added and what you declined.\n\n**Which of these do you mean?**\n- **Your game is in another folder:** give me the path and I'll run step 1 there and show you the results before changing anything.\n- **This is meant to be a new game:** the right command is `/game-dev:kickstart` for a brand-new game, or `/game-dev:migrate` for an existing game you want to bring onto the setup."
+              }
+            ]
+          }
+        ],
+        "without": [
+          {
+            "score": 0,
+            "passed": false,
+            "turns": 5,
+            "costUsd": 0.0704945,
+            "judgeCostUsd": 0.0005163000000000004,
+            "durationSeconds": 15,
+            "startedAt": "2026-11-07T13:08:12.242Z",
+            "error": null,
+            "tracePath": "/private/tmp/e-JmL5Sz/out/trace.jsonl",
+            "skippedPaidGraders": false,
+            "graders": [
+              {
+                "name": "criteria",
+                "passed": false,
+                "weight": 1,
+                "explanation": "judge votes: FAIL FAIL FAIL",
+                "withOnly": false,
+                "scored": true,
+                "judgeVotes": [
+                  false,
+                  false,
+                  false
+                ],
+                "evidence": "I haven't changed anything. I looked first, and I can't find either the game or the plugin, so I don't have a plan to give you yet.\n\n**What I checked:**\n- **Your working directory** (`/private/tmp/e-JmL5Sz/home/cwd`): it's empty. There's no game project, engine config or asset folders. The git repo has no commits, and the only untracked file is `../.gitconfig`.\n- **The home directory**: no files mention \"game\" and there's no `.claude/` folder.\n- **The plugin**: there's no game-dev skill or command in this session, so I can't read the updated plugin to see what changed or what setup it expects.\n- **The Claude config directory**: I was denied permission to read it. If the plugin is installed, it's probably there.\n\n**To get going, I need one of these:**\n1. **Where your game is.** If it's in another directory, tell me the path or start the session from there.\n2. **Access to the plugin.** Either allow reading the config directory or point me to the plugin's files (README or changelog). Pasting the release notes also works.\n3. **Whether the plugin is enabled.** If it isn't, enable it and restart the session so its skills show up.\n\nOnce I can see the project and the plugin's new requirements, I'll compare the two and tell you exactly what I'd change before touching anything."
+              }
+            ]
+          }
+        ]
+      },
+      "aggregates": {
+        "score": 1,
+        "passRate": 1,
+        "scoreWithout": 0,
+        "passRateWithout": 0,
+        "delta": 1
+      }
+    }
+  ],
+  "aggregates": {
+    "casesTotal": 3,
+    "casesPassed": 3,
+    "overallScore": 1,
+    "overallPassRate": 1,
+    "meanDelta": 1
+  }
+}

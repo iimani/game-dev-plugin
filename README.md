@@ -58,6 +58,12 @@ untouched. Each is a short Python script and costs no context unless it fires.
 - After an edit under `docs/design/` or `docs/team/` (`hooks/post-edit.py`): runs the game's `scripts/check-design.py`
   or `check-team.py` and feeds a failure back at once.
 
+## Engine adapters
+
+`skills/kickstart/templates/engines/` has a short adapter for Godot, Unity, Unreal, web and Bevy: the headless run, test
+and export commands, how the playtester sees the game, and what to keep engine-free. The kickstart pastes the chosen one
+into the game's `docs/design/tech.md`. The plugin itself stays engine-neutral.
+
 ## Art and sound tools
 
 These are referenced, not bundled. `skills/kickstart/templates/process/art-style.md` compares them and says how to

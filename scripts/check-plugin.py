@@ -38,6 +38,12 @@ if hooks_file.exists():
                     if not (root / script).exists():
                         problems.append(f"hooks/hooks.json runs {script}, which doesn't exist")
 
+LABELS = ("**Version:**", "**Run:**", "**Test:**", "**Export:**", "**See it (playtester):**", "**Keep engine-free:**")
+for path in root.glob("skills/kickstart/templates/engines/*.md"):
+    for label in LABELS:
+        if label not in path.read_text():
+            problems.append(f"{path.relative_to(root)} has no {label}")
+
 if problems:
     sys.exit("check-plugin:\n  " + "\n  ".join(problems))
-print("check-plugin: generic, every role is indexed, hooks resolve")
+print("check-plugin: generic, every role is indexed, hooks resolve, engine adapters complete")
