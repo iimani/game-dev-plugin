@@ -36,7 +36,7 @@ Read the repo before you touch it, and report a table of what exists, where it g
 - **Design:** design docs, specs, wikis, notes. Which one is the source of truth? Is any of it outside the repo?
 - **Process:** how things get designed and reviewed now. A good existing process stays, and only moves.
 - **Tracking:** where tasks live, the task key, how a task moves.
-- **Code:** engine, language, layout. What decides and what shows. What can be tested without the engine.
+- **Code:** engine, language, layout. What decides and what shows. What can be tested without the engine. If the engine has an adapter in `${CLAUDE_PLUGIN_ROOT}/skills/kickstart/templates/engines/`, add it to `tech.md` as the kickstart does, and record the commands that really work.
 - **Proofs:** tests, bots, solvers, and the full and fast check commands.
 - **Art and sound:** the style, the tools, any asset list. Don't run `choose-art-style` when a style is already set: record
   it in `docs/design/art.md`.

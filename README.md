@@ -48,6 +48,12 @@ Then run `/game-dev:help` in a game's repo. It says whether to kick off a new ga
 
 Plugins declared in a repo's settings don't load in cloud sessions. Use a local session for this team.
 
+## Engine adapters
+
+`skills/kickstart/templates/engines/` has a short adapter for Godot, Unity, Unreal, web and Bevy: the headless run, test
+and export commands, how the playtester sees the game, and what to keep engine-free. The kickstart pastes the chosen one
+into the game's `docs/design/tech.md`. The plugin itself stays engine-neutral.
+
 ## Art and sound tools
 
 These are referenced, not bundled. `skills/kickstart/templates/process/art-style.md` compares them and says how to

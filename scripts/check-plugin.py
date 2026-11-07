@@ -28,6 +28,12 @@ for path in root.glob("agents/*.md"):
     if f"`{path.stem}`" not in index:
         problems.append(f"role {path.stem} has no row in the team template")
 
+LABELS = ("**Version:**", "**Run:**", "**Test:**", "**Export:**", "**See it (playtester):**", "**Keep engine-free:**")
+for path in root.glob("skills/kickstart/templates/engines/*.md"):
+    for label in LABELS:
+        if label not in path.read_text():
+            problems.append(f"{path.relative_to(root)} has no {label}")
+
 if problems:
     sys.exit("check-plugin:\n  " + "\n  ".join(problems))
-print("check-plugin: generic, and every role is indexed")
+print("check-plugin: generic, every role is indexed, engine adapters complete")
