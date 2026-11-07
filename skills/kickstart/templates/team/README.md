@@ -45,6 +45,7 @@ only code. The session does the work itself only if it's a handful of tool calls
 | Before a PR is marked ready | `code-reviewer` and `design-guardian` |
 | Review findings | The role that made the work, resumed |
 | A change the player sees, sized to the change | `playtester` |
+| Critical playtest findings | The role that made the work, resumed |
 
 **The session keeps** the decisions: talking with the owner, the gates, the plan, the tracker, git, the PR, the review, and
 updating the guideline. It doesn't keep the making.

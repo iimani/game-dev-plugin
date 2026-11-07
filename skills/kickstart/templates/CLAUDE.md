@@ -89,8 +89,22 @@ Before a PR is marked ready, run `game-dev:code-reviewer` and `game-dev:design-g
 
 A change the player sees gets a blind playtest, sized to the change. Run `game-dev:playtester`, and give it only
 `docs/team/playtester-controls.md` word for word, the mode, a goal that names a place and never a mechanic, the move
-limit and the device. The session that ran it writes the verdict: the main result is the gap between what the agent
-believed and the real rules. Separate real findings from tool artifacts. It's advisory, unless the game gets stuck.
+limit and the device. Set the limit well above the shortest route, so a slip doesn't end the run. The session that ran it
+writes the verdict: the main result is the gap between what the agent believed and the real rules.
+
+The session sorts every finding, and the tester never does: it stays blind and reports problems.
+
+| Level | Means | What happens |
+|---|---|---|
+| **Critical** | The game can't be finished, something is really broken, or a wrong belief cost the player the level | Fixed in this task by the role that made the work, in one message, then retested |
+| **Worth doing** | It works, but the player lost time or misread something | Ranked in "Optional" in the phase's plan file, with its evidence and rough size. Not built unless the owner picks it |
+| **Noise** | A tool artifact, or a one-off with nothing behind it | One line in the verdict, then dropped |
+
+- **Critical needs proof.** Reproduce it, or check it against the real rules, first. Running out of moves isn't Critical
+  by itself, and neither is a report that a key was lost.
+- **Retest only what changed:** the place the fix touched, for at most two rounds. If it's still Critical, it goes to the
+  owner.
+- **Say so if it didn't run.** A playtest that couldn't run goes in the PR as not done. It's never a pass.
 
 ## Pull requests
 

@@ -32,7 +32,8 @@ at kickstart and belong to it from then on.
   reviewing a design, is imported once, and is then frozen.
 - A staged method per kind of design work, each with its gates and proofs.
 - Proved, not hoped: bots and solvers check content before a person plays it.
-- A blind playtester that knows only what's on the screen.
+- A blind playtester that knows only what's on the screen. Critical findings are fixed in the same task, and the rest are
+  ranked as optional work for the owner to pick.
 
 ## Install
 

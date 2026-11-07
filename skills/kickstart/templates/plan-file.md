@@ -25,6 +25,14 @@ files and how to run it. The calling session keeps the tracker, git, the PRs and
   alongside the others>.
 - **Close:** <the items the session marks Built, and the catalogues it updates>.
 
+## Optional
+
+Worth doing, not planned. Best first. Nothing here is built unless the owner picks it, and then it becomes a step.
+
+| # | Finding | Evidence | Size |
+|---|---|---|---|
+| 1 | <what would improve> | <the playtest or review, and what happened> | <small, medium or large> |
+
 ## Rulings
 
 Decisions made while planning, each with what it costs if wrong.
