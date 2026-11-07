@@ -24,6 +24,10 @@ at kickstart and belong to it from then on.
 - `choose-art-style` picks a style and tool by making the same test asset in each and judging it on the real screen.
 - `choose-models` recommends a model for each role, and records the owner's choice. `kickstart` and `migrate` run it.
 - `plan-phase` plans the next phase, writes its plan file and cuts tasks.
+- `close` closes a task: a script checks the branch against the design, then the session marks items Built and runs the
+  reviewers.
+- `decide` records an owner's ruling in `decisions.md` and relabels what it settles.
+- `upgrade` lists where a game's copies of the templates fell behind the plugin, and proposes each update.
 - `help` shows the commands and roles, and says what to do next in this repo.
 
 **The method:**
@@ -59,6 +63,7 @@ materials), [chirp](https://github.com/uilianks/chirp) (sound).
 
 ```bash
 python3 scripts/check-plugin.py
+python3 scripts/test-scripts.py
 claude plugin validate .
 ```
 

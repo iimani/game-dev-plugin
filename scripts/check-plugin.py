@@ -28,6 +28,12 @@ for path in root.glob("agents/*.md"):
     if f"`{path.stem}`" not in index:
         problems.append(f"role {path.stem} has no row in the team template")
 
+for path in root.glob("scripts/*.py"):
+    try:
+        compile(path.read_text(), str(path), "exec")
+    except SyntaxError as error:
+        problems.append(f"{path.relative_to(root)} doesn't compile: {error}")
+
 if problems:
     sys.exit("check-plugin:\n  " + "\n  ".join(problems))
-print("check-plugin: generic, and every role is indexed")
+print("check-plugin: generic, every role is indexed, scripts compile")
