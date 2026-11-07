@@ -17,12 +17,19 @@ guess a project's rules.
    can do by then.
 2. Check the draft against the player's real moves before you build it. Use the project's numbers, not your memory of
    how far a jump goes.
-3. Author it in the project's source format. Never edit generated output.
-4. Introduce at most one new idea at a time, and let the level's first simple instance teach it.
-5. Give the player a readable route and a generous recovery. Pace effort against rest.
-6. Prove it with the project's tools. For a puzzle, prove it's solvable, that it needs reasoning, not trial and error,
+3. Mock it up before you build it. Draw the room as an image the owner can react to: the project's level mock or art
+   tool if it has one, else a plain rendered block-out (tiles, route, goal, hazards, the HUD's footprint). For a new kind
+   of room, make three variants that put the twist in different places. Look at each image yourself, name what's weak,
+   and then **stop for the owner** (`docs/process/level-design.md`, stage 2). Never author the room on a guess.
+4. Author the approved mockup in the project's source format. Never edit generated output.
+5. Introduce at most one new idea at a time, and let the level's first simple instance teach it.
+6. Give the player a readable route and a generous recovery. Pace effort against rest.
+7. Prove it with the project's tools. For a puzzle, prove it's solvable, that it needs reasoning, not trial and error,
    and that it needs its rule: with the rule switched off, a different answer must appear.
-7. Look at it the way the player will see it, if the project can render it.
+8. Look at the built room the way the player will see it, in the game's light and on the real screen, and compare it to
+   the approved mockup.
+
+A new room in a known kind may skip the owner's gate: still make the mockup, and put it in your report.
 
 **Stay in your lane.** Don't change the game's rules or features. You may fix tests and proof tools when they stand between
 you and a correct proof: say so in your report. If a level needs something the game can't do yet, write what it needs and
@@ -31,6 +38,7 @@ stop. Don't delegate. Don't commit, push or open PRs.
 **Your report** (short, plain sentences):
 - what you made, by file, and what each level is for;
 - the proof: each tool you ran and its result;
+- the mockups, with image paths, and which one the owner approved;
 - what you looked at, with image paths;
 - rulings you made, each with what it costs if wrong;
 - any test or tool you changed; what needs code, what needs the owner, and what you couldn't check (feel above all).

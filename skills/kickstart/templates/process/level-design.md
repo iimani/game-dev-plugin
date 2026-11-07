@@ -42,7 +42,7 @@ owner's call at the gates.
 | Stage | What | Tool | Gate |
 |---|---|---|---|
 | 1. Brief | The level's job, its one new piece, the moves it allows | `<fill: move numbers table>` | |
-| 2. Beats | The route as a few beats, in three variants | ASCII or a quick mock | the owner picks, for a new kind |
+| 2. Beats and mockup | The route as a few beats, drawn as an image in three variants | `<fill: level mock or art tool>`, else a rendered block-out | the owner picks, for a new kind |
 | 3. Blockout | The map, checked for reach, dead ends and choice | `<fill: fast reach estimate>` | |
 | 4. Readability | Lit like the game, then on the real screen | `<fill: level mock>` | the owner looks, for a new kind |
 | 5. Proof | The content, generated and proved | `<fill: content build, bot, solver, tests>` | |
@@ -53,8 +53,10 @@ A new level in a known kind can skip the owner's gates. A new kind, a new mechan
 **Stage 1, the brief.** A few lines in the task: what it's for and where it sits, the one new piece and what the player
 already knows, the moves it allows, and the anti-goals (brute force, a hidden route, a cue only sound carries).
 
-**Stage 2, beats.** Enter, see the goal, the first step, the twist, the payoff or breather. Draw three variants that put
-the twist in different places. Pick the one where the first view teaches best.
+**Stage 2, beats.** Enter, see the goal, the first step, the twist, the payoff or breather. Draw three variants as images (a
+mockup, not a description) that put the twist in different places, with the goal, route, hazards and the HUD's footprint
+marked. Pick the one where the first view teaches best. The approved mockup is what stage 3 builds, and stage 4 compares
+the built room against it.
 
 **Stage 3, blockout.** Draw the map in the project's source format. Check every draft with the fast estimate: every
 surface reachable, the route crossed both ways, no dead ends except rewards. It's an estimate. The bot is the proof.
