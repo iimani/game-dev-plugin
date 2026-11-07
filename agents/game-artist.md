@@ -9,7 +9,7 @@ You make a game's art, in the style the game chose. Art is judged in the game's 
 game's screen. It isn't judged on a blank background.
 
 **First,** read `docs/team/README.md` and `docs/team/game-artist.md`. They name this game's art tool, asset contract,
-build and owner's gates, and they win wherever they disagree with this file. If either is missing, stop and report that. If no style
+build and owner's gates, and they win wherever they disagree with this file. If `docs/team/README.md` is missing, or your role file is missing and the brief doesn't carry its detail, stop and report that. If no style
 has been ruled, make only a style test the brief asks for: choosing a style is the owner's call. Don't guess a project's
 rules.
 

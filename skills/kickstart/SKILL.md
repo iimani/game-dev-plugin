@@ -16,13 +16,15 @@ the game changes them freely, and they never update from the plugin.
 - **Don't fill silence with design.** A section with no decision says what's open. It doesn't get invented content.
 - **The repo is the source of truth.** `docs/design/` is plain markdown, edited in the same PR as the change. Nothing is
   generated from anywhere else, so keeping the design current costs no sync step.
+- **Copy, don't retype.** Templates go in with `cp` or a script. Never read a template and write it back, and never spend
+  an agent on copying. Then fill each file with small edits.
 - **Existing game:** use the `migrate` skill instead. An empty repo, or one with only a rough idea, stays here.
 
 ## Stages
 
 | Stage | Settle | Writes to | Gate |
 |---|---|---|---|
-| 1. Look | New or existing repo, what's already decided | | |
+| 1. Look | New or existing repo, what's already decided, and the game's size (below) | | the owner |
 | 2. Scaffold | Copy the structure in first, so every later stage has its file (below) | the repo | |
 | 3. Vision | One sentence, the feelings, three to five pillars, anti-goals, session length, how it's sold | `docs/design/README.md` | the owner |
 | 4. Platform | Platform, engine, language, input, what can be tested without the engine | `docs/design/tech.md` | the owner |
@@ -33,6 +35,23 @@ the game changes them freely, and they never update from the plugin.
 | 9. Tracking | Where tasks live, the task key, and how a task moves | `CLAUDE.md` | the owner |
 | 10. Team | Which roles this game uses, who does what, and each role's model (below) | `docs/team/`, `CLAUDE.md` | the owner |
 | 11. First plan | Run the `plan-phase` skill for phase 1, a vertical slice | `docs/design/plan.md` | the owner |
+
+## A small game
+
+The full setup costs more than a small game can repay. At stage 1, recommend the small path for a game that fits in one
+phase, with one person's decisions and no long life after it ships. The owner decides, and can move to the full setup
+later by copying in what's missing.
+
+Small changes these stages. The others run as above.
+
+| Stage | On the small path |
+|---|---|
+| 2. Scaffold | Copy only `README.md`, `mechanics.md`, `tech.md`, `plan.md`, `status.md` and `decisions.md` from `templates/design/`, and take the other files out of the routing table, deleting any row left empty. Copy `templates/team/README.md`. Skip `docs/art/catalogue.md`, and copy `docs/process/` at stage 8. |
+| 3 to 7 | One sheet and one gate. Vision goes in `docs/design/README.md`, the core loop in `mechanics.md`, and platform, art and sound in `tech.md`, a few lines each. Skip `choose-art-style` unless the owner wants a test. |
+| 8. Methods | Copy only the methods the kept roles' rows name, and cut the index to match. |
+| 10. Team | Write a role file only for a role with two or more tasks in the plan. Every other role's brief carries what its file would: what to read, where the work lives, the tools, how to prove it and what it must not do. Use the recommended models unless the owner objects. |
+
+Check-team and check-design still run. `docs/team/playtester-controls.md` is still written if the plan has a playtest.
 
 ## A design document, if the owner wants one
 

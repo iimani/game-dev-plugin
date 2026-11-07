@@ -16,11 +16,13 @@ files and how to run it. The calling session keeps the tracker, git, the PRs and
 
 - **What:** <the change, and the design section it serves>.
 - **Save:** <what changes in the save, if anything>.
-- **Tests:** <the tests, and what each proves>.
+- **Read:** <the sections and files this step's role needs, and nothing more>.
+- **Tests:** <the tests, and what each proves: one per rule each way, plus the proof>.
 - **Files:** <the files it touches>.
 - **Proof:** <what a tool or a person checks>.
 - **Role:** <which agent carries it out>.
-- **Waits for:** <the steps it needs, or "nothing", so it can run alongside the others>.
+- **Waits for:** <each step it needs and what it needs from it (a file, a format, a number), or "nothing", so it can run
+  alongside the others>.
 - **Close:** <the items the session marks Built, and the catalogues it updates>.
 
 ## Rulings

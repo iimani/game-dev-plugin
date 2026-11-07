@@ -76,6 +76,13 @@ to ask.
 
 Hand off as `docs/team/README.md` says: resume an agent for follow-up work, batch findings, and brief it narrowly.
 
+Review findings go back to the role that made the work, in one message. Don't make them yourself, even small ones.
+
+Stay in the turn until every role has reported back. Ending the turn can stop a role that's still running: a headless
+run stops it about ten minutes later, and its work is lost.
+
+Run one command per call, from the repo root, with no `cd` and no chaining.
+
 Before a PR is marked ready, run `game-dev:code-reviewer` and `game-dev:design-guardian`.
 
 ## Playtesting
