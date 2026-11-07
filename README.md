@@ -85,6 +85,18 @@ python3 scripts/check-plugin.py
 claude plugin validate .
 ```
 
+## Evals
+
+`evals/` holds three behaviour cases: the kickstart offers the small-game path, an existing game is sent to `migrate`,
+and a role stops when the team docs are missing. Each is scored with and without the plugin, so a pass means the plugin
+caused it. They call the model, so they stay out of `check-plugin`: run them after changing a skill or an agent.
+
+```bash
+claude plugin eval . --runs 2 -j 3 --no-publish --max-cost-usd 5
+```
+
+One run of all three costs about $0.60. Add a case when a rule in a skill or agent keeps getting broken.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
