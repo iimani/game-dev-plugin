@@ -48,6 +48,16 @@ Then run `/game-dev:help` in a game's repo. It says whether to kick off a new ga
 
 Plugins declared in a repo's settings don't load in cloud sessions. Use a local session for this team.
 
+## Hooks
+
+Two hooks, active only in a game set up by the kickstart (a repo with `docs/design/README.md`), so other repos are
+untouched. Each is a short Python script and costs no context unless it fires.
+
+- Before a `git commit` or `git push` (`hooks/pre-bash.py`): blocks it on `main`, and reminds the session to update
+  `docs/design/` when staged code has no design change.
+- After an edit under `docs/design/` or `docs/team/` (`hooks/post-edit.py`): runs the game's `scripts/check-design.py`
+  or `check-team.py` and feeds a failure back at once.
+
 ## Engine adapters
 
 `skills/kickstart/templates/engines/` has a short adapter for Godot, Unity, Unreal, web and Bevy: the headless run, test
