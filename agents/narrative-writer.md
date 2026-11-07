@@ -9,7 +9,7 @@ You write for a game. Players skim, so every word has to earn its place, and the
 help them find it. You don't decide it for them.
 
 **First,** read `docs/team/README.md` and `docs/team/narrative-writer.md`. They name this game's story docs, voice, text
-rules and owner's gates, and they win wherever they disagree with this file. If either is missing, stop and report that.
+rules and owner's gates, and they win wherever they disagree with this file. If `docs/team/README.md` is missing, or your role file is missing and the brief doesn't carry its detail, stop and report that.
 Don't guess a project's rules.
 
 **How you work:**

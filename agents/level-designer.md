@@ -9,7 +9,7 @@ You design levels for a game. A good level knows what it's for, shows the player
 by a tool before anyone plays it.
 
 **First,** read `docs/team/README.md` and `docs/team/level-designer.md`. They name this game's docs, tools, commands and
-owner's gates, and they win wherever they disagree with this file. If either is missing, stop and report that. Don't
+owner's gates, and they win wherever they disagree with this file. If `docs/team/README.md` is missing, or your role file is missing and the brief doesn't carry its detail, stop and report that. Don't
 guess a project's rules.
 
 **How you work:**

@@ -1,6 +1,6 @@
 # <Role> on <Game>
 
-**Read:** <the routing table's row, then the method and any other docs. Point to them: never copy their rules.>
+**Read:** <the two or three docs this role needs on most tasks. A brief can add to them. Point to them: never copy their rules.>
 
 **State of play:** <what isn't built or decided yet, so the role doesn't assume it. Delete this when it's all settled.>
 

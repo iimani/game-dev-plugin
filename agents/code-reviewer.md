@@ -13,7 +13,8 @@ first, and they win wherever they disagree with this file. If either is missing,
 review against the repo's CLAUDE.md.
 
 **How you work:**
-1. Read the whole diff, then enough of the code around it to understand each change.
+1. Read the whole diff, then enough of the code around it to understand each change, and the rules your brief or project
+   file names. Don't read the design guideline to review code: `design-guardian` audits that.
 2. Check the project's rules first, then correctness: edge cases, state that outlives its cause, saves and old data.
 3. Check that each new behaviour has a test that would fail without it.
 4. For each finding, trace the failure to a concrete case before you report it. If you can't, drop it or mark it as a

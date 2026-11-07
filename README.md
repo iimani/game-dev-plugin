@@ -19,6 +19,7 @@ at kickstart and belong to it from then on.
 
 **Skills:**
 - `kickstart` starts a new game: the scaffold, vision, platform, core loop, art style, sound, methods, team and first plan.
+  A small game can take a shorter path with fewer docs and one gate.
 - `migrate` brings an existing game onto this setup, without losing anything.
 - `choose-art-style` picks a style and tool by making the same test asset in each and judging it on the real screen.
 - `choose-models` recommends a model for each role, and records the owner's choice. `kickstart` and `migrate` run it.

@@ -15,8 +15,8 @@ The design guideline is the tracker. A plan comes from it, and goes back into it
 3. **Tasks are cut from the plan,** one per PR, test-first.
 4. **Every PR updates the design:** it marks its items **[Built, KEY-N]** and updates `docs/design/status.md`.
 5. **Few handoffs.** A step that's mostly one side, with a little of the other, gets one owner. A step with real work on
-   both sides keeps two roles, with the shared format settled first. See "Handing work between roles" in
-   `docs/team/README.md`.
+   both sides keeps two roles, with the shared format settled first. Review fixes go back to the role that made the work.
+   See "Handing work between roles" in `docs/team/README.md`.
 6. **One lane at a time through shared files.** Land one PR, merge it into the next branch, and never rebase. Work in
    separate files can run in parallel.
 7. **Don't build on what's being replaced.**
@@ -31,9 +31,13 @@ The design guideline is the tracker. A plan comes from it, and goes back into it
    slice: one short stretch of the real game, with its core loop, proved and playable.
 4. Pick a role for every step, from "Who does what" in `docs/team/README.md`, design steps included. Then write the plan
    file from `${CLAUDE_PLUGIN_ROOT}/skills/kickstart/templates/plan-file.md`. Each step is a PR with What,
-   Tests, Files and Proof. Name which role carries it out (`docs/team/README.md`).
-5. Mark what can run in parallel, and what each step waits for. If steps run one after another only because a format isn't
-   settled, make settling it the first step.
+   Read, Tests, Files and Proof. Name which role carries it out (`docs/team/README.md`). **Read** lists the sections and
+   files that role needs, so its brief can name them and it reads nothing else.
+5. Mark what can run in parallel. A step that waits on another names what it needs from it: a file, a format or a number.
+   "The rules step" isn't an answer. If all it needs is a format, make settling that format a short first step, so both
+   steps can run side by side. Levels, for example, usually need the tile format, not the finished rules.
+   Steps that run side by side start as new agents, in one message. Don't plan on a resumed agent running beside another:
+   its message can wait until the running agent finishes.
 6. Update `docs/design/plan.md`: the phase, its exit, and "Where we are".
 7. Stop for the owner's approval. Then cut the tasks, in the tracker named in CLAUDE.md.
 
@@ -50,5 +54,7 @@ ready, the session:
 
 - Everything is *(builder's call)* unless it quotes the owner.
 - Size a step to one PR that a person can review.
+- Size a step's tests in its plan: one test per rule each way, plus its proof. Writing tests costs more than running them.
+  Keep every test that would catch a real break.
 - A step's proof is something a tool or a person can check, and never "works well".
 - If you can't name a step's proof, its design isn't finished.

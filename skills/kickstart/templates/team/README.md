@@ -8,7 +8,7 @@ How the agents work on <Game>. Every agent reads this file, then its own file he
 - **The project** is in `docs/team/<role>.md`. It says what the role needs for this game: what to read, where things
   live, which commands prove the work, and where the owner decides.
 
-A file here points to the docs that hold the rules. It never copies them. `scripts/check-team.py` fails if a file here
+On a small game, a role with one task has no file here, and its brief carries that detail. A file here points to the docs that hold the rules. It never copies them. `scripts/check-team.py` fails if a file here
 names a path that doesn't exist.
 
 ## The roles
@@ -43,6 +43,7 @@ only code. The session does the work itself only if it's a handful of tool calls
 | Story, lore, signs, hints, any text the player reads | `narrative-writer` |
 | A question about numbers, difficulty or length | `balance-analyst` |
 | Before a PR is marked ready | `code-reviewer` and `design-guardian` |
+| Review findings | The role that made the work, resumed |
 | A change the player sees, sized to the change | `playtester` |
 
 **The session keeps** the decisions: talking with the owner, the gates, the plan, the tracker, git, the PR, the review, and
@@ -56,14 +57,18 @@ Handoffs cost the most time, so plan them.
 - **Real work on both sides:** keep two roles, because a second eye finds things. Settle the shared format first, so
   they can overlap.
 - **Resume, don't restart.** For follow-up work, send a message to the agent that did the first pass. It keeps its
-  context, and costs a fraction of a new one.
+  context, and costs a fraction of a new one. A resumed agent may not start until a running agent finishes, so start
+  work that must overlap as new agents, in one message.
+- **Send review fixes back.** They go to the role that made the work, even small ones. The session's context is the
+  costliest place to make them.
 - **Batch findings.** Send them back in one message, not one at a time.
-- **Brief narrowly.** Name the sections and files the role needs, so it doesn't read everything.
+- **Brief narrowly.** Name the sections and files from the step's **Read** line, so the role reads only those. Give
+  `code-reviewer` the diff and the rules, not the guideline.
 - **Mind the shared machine.** Two roles running heavy tests at once slow each other down.
 
 ## Rules for every role
 
-- **Read the design first.** If the brief names sections and files, read those. Otherwise read `docs/design/README.md`,
+- **Read the design first.** If the brief names sections and files, read those and nothing else. Otherwise read `docs/design/README.md`,
   then every file its routing table lists for your task, then your method from `docs/process/README.md`. Where a method disagrees with the guideline or a newer owner ruling, those
   win.
 - **The calling session owns** the tracker, git, the PR, published pages, the guideline and every question to the owner. When you reach
@@ -75,5 +80,8 @@ Handoffs cost the most time, so plan them.
 - **Fix what blocks your proof.** You may change tests and proof tools when they stand between you and a correct proof, and
   say so in your report. You never change the game's rules that way.
 - **Test narrowly while you iterate.** Run the suite you're working on, and the full check once at the end.
+- **One command per call, from the repo root.** No `cd`, and no chaining with `&&`, `;` or `|`. A narrow permission list
+  denies those, and each denial costs a round trip. If a command is denied, use another tool or report it: don't retry
+  variations.
 - **Keep inventories current.** A new kind of thing gets its catalogue row in the same change.
 - **Write plainly.** Short sentences, in reports as well as docs.
