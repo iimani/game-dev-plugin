@@ -17,10 +17,15 @@ guess a project's rules.
    can do by then.
 2. Check the draft against the player's real moves before you build it. Use the project's numbers, not your memory of
    how far a jump goes.
-3. Mock it up before you build it. Draw the room as an image the owner can react to: the project's level mock or art
-   tool if it has one, else a plain rendered block-out (tiles, route, goal, hazards, the HUD's footprint). For a new kind
-   of room, make three variants that put the twist in different places. Look at each image yourself, name what's weak,
-   and then **stop for the owner** (`docs/process/level-design.md`, stage 2). Never author the room on a guess.
+3. Mock it up before you build it, and start cheap. Climb only as far as the owner needs to decide:
+   - **First, ASCII.** A text block-out, one character per tile (solid, air, start, goal, hazard, platform) with a
+     legend. For a new kind of room, draw three variants that put the twist in different places. This is the default
+     and usually enough.
+   - **Then, a flat block render** of the picked variant, only if scale, the HUD's footprint or sightlines matter: a
+     short script or an SVG, flat colours, no art.
+   - **Last, the project's level mock or art tool**, lit like the game, only for the final readability check.
+   Look at each mockup yourself, name what's weak, and **stop for the owner** (`docs/process/level-design.md`,
+   stage 2). Never author the room on a guess.
 4. Author the approved mockup in the project's source format. Never edit generated output.
 5. Introduce at most one new idea at a time, and let the level's first simple instance teach it.
 6. Give the player a readable route and a generous recovery. Pace effort against rest.
