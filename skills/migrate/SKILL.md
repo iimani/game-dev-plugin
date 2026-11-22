@@ -57,7 +57,11 @@ For each project agent: match it to a role, then move its project detail to `doc
 specific to this game. Delete the old agent file once the role works. A job no role covers stays a project agent.
 
 - **The playtester** can't read files. Its project detail goes in `docs/team/playtester-controls.md`, pasted word for word
-  into its brief.
+  into its brief. What a practiced player knows goes in `docs/team/player-guide.md`, from `templates/team/`, only if the
+  game has been played enough to write it from play. Copy `playtester-journal.md` with it. Without a guide the game
+  playtests blind.
+- **A playtester that plays through the game's own tools** stays a project agent, as a copy of the plugin's role: the
+  playtest skill says what the copy may change.
 - **Plans** that name an old agent can stay as history. Note the new name in `CLAUDE.md`.
 
 ## Turning on delegation

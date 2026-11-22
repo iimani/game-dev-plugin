@@ -5,6 +5,8 @@
   difference means the plugin changed them.
 - new files: template files the game doesn't have.
 - headings: "## " headings in a template that the game's copy of CLAUDE.md, a method or a team file lacks.
+- role copies: an agent in the game's .claude/agents/ named <something>-<role> is a copy of that plugin role with other
+  tools. Its body should be the plugin role's body, word for word, so a difference means the role changed.
 It lists, changes nothing, and spends no model tokens. The session then proposes each update for the owner.
 """
 import pathlib
@@ -23,7 +25,12 @@ def normal(path):
     return "\n".join(l for l in path.read_text().splitlines() if not l.startswith("PLANNED"))
 
 
-stale, new, missing = [], [], []
+def body(path):
+    parts = path.read_text().split("---", 2)
+    return (parts[2] if len(parts) == 3 and not parts[0].strip() else path.read_text()).strip()
+
+
+stale, new, missing, copies = [], [], [], []
 
 scripts = ["check-team.py", "check-design.py"]
 if (root / "docs/process/telemetry.md").exists():
@@ -50,8 +57,15 @@ for template, mine in pairs:
             if key not in headings(mine):
                 missing.append(f"{rel}: ## {title}")
 
+roles = {p.stem: p for p in (plugin / "agents").glob("*.md")}
+for mine in sorted((root / ".claude/agents").glob("*.md")):
+    for role, theirs in roles.items():
+        if mine.stem.endswith("-" + role) and body(mine) != body(theirs):
+            copies.append(f"{mine.relative_to(root)}: its body differs from the plugin's {role}")
+
 for title, items in (("Scripts that differ from the plugin's", stale), ("Template files this game doesn't have", new),
-                     ("Template headings missing from this game's copy", missing)):
+                     ("Template headings missing from this game's copy", missing),
+                     ("Project copies of a role that differ from the plugin's", copies)):
     print(f"{title} ({len(items)}):")
     print("\n".join("  " + i for i in items) if items else "  none")
     print()

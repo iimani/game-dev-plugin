@@ -12,7 +12,7 @@ Run it from the repo root:
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/upgrade-diff.py"
 ```
 
-It lists three things and changes nothing. For each, propose the change and wait for the owner's yes before you make it. The
+It lists four things and changes nothing. For each, propose the change and wait for the owner's yes before you make it. The
 game's own wording always wins over the template's.
 
 - **Scripts that differ.** Copy the plugin's script over the game's, then re-add the game's `PLANNED` entries.
@@ -20,6 +20,9 @@ game's own wording always wins over the template's.
   Copy only the ones the owner wants, and add them to the routing table or methods index where they belong.
 - **Template headings missing from the game's copy.** Read the template's section next to the game's file, and add the
   section only if it fits this game. Keep it short: a section nobody needs costs every session that reads the file.
+- **Project copies of a role that fell behind.** A game that plays through its own tools keeps a copy of a role in
+  `.claude/agents/`, with other tools. Copy the plugin role's body over the copy's, and keep the copy's own frontmatter.
+  If the copy's body held anything about the game, move that to the role's file in `docs/team/` first.
 
 Then run `scripts/check-team.py` and `scripts/check-design.py`. Put the whole upgrade in one PR on a `feature/` branch, with
 what was added and what the owner declined.
