@@ -22,6 +22,7 @@ It prints `OK`, `FIX` and `TODO` lines, and exits 1 on any `FIX`.
 3. **Run `game-dev:code-reviewer` and `game-dev:design-guardian`** together, in one message. Fix what they find through the
    role that made the work, and re-run only what changed.
 4. **Write the PR body** in the form the repo's `CLAUDE.md` gives: the task, what changed and why, Tests and Demo. Say
-   plainly what didn't run.
+   plainly what didn't run. A bar or a figure the owner will rule on comes from one committed script that prints before
+   and after in the same run: name the script and paste its output. Never carry a number by hand from a scratch run.
 
 Don't mark the PR ready until step 3 is clean. Never merge: the owner does.
