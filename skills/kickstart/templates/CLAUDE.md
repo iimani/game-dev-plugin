@@ -87,10 +87,11 @@ Before a PR is marked ready, run `game-dev:code-reviewer` and `game-dev:design-g
 
 ## Playtesting
 
-A change the player sees gets a blind playtest, sized to the change: run `/game-dev:playtest`. It briefs
-`game-dev:playtester` with only `docs/team/playtester-controls.md`, sorts the findings (Critical, Worth doing, Noise),
-fixes the critical ones through the role that made the work, and ranks the rest in "Optional". A playtest that couldn't run
-goes in the PR as not done, never as a pass.
+A change the player sees gets a playtest, sized to the change: run `/game-dev:playtest`. It picks the tester's profile
+(blind with only `docs/team/playtester-controls.md`; practiced or regular once the game has a player's guide), never
+tells the tester what changed, sorts the findings (Critical, Worth doing, Noise), fixes the critical ones through the
+role that made the work, and ranks the rest in "Optional". A verdict that gates a merge rests on three runs, written as
+a count. A playtest that couldn't run goes in the PR as not done, never as a pass.
 
 ## Pull requests
 

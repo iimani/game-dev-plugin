@@ -24,7 +24,11 @@ names a path that doesn't exist.
 | `balance-analyst` | economy, difficulty and pacing numbers | `docs/process/progression-design.md` | `sonnet` |
 | `code-reviewer` | read-only review against the architecture rules | CLAUDE.md | `opus` |
 | `design-guardian` | read-only audit of a change against the design | `docs/design/README.md` | `sonnet` |
-| `playtester` | plays blind | `docs/team/playtester-controls.md` | `sonnet` |
+| `playtester` | plays blind, practiced or as a regular | `docs/team/playtester-controls.md` | `sonnet` |
+
+The playtester can't read the repo, so its brief carries its files word for word: `playtester-controls.md` always,
+`player-guide.md` for a practiced player, and `playtester-journal.md` as well for a regular. A game with no guide plays
+blind only. `/game-dev:playtest` picks the profile.
 
 The session passes the Model value as `model` on the Agent call. `/game-dev:choose-models` shows why each is recommended, and changes them.
 

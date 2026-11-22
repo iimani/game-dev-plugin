@@ -70,7 +70,9 @@ Do the same for a big design phase later on. Images go in the repo, so `docs/des
    Every item carries a label: **[Built]**, **[Approved]**, **[Draft]** or **[Proposal]**. What the owner ruled at a gate
    is **[Approved]**.
 2. **Methods.** Copy all of `templates/process/` to `docs/process/`. Stage 8 removes what the game doesn't need.
-3. **Team.** Copy `templates/team/README.md` and `templates/team/playtester-controls.md` to `docs/team/`.
+3. **Team.** Copy `templates/team/README.md` and `templates/team/playtester-controls.md` to `docs/team/`. Leave
+   `player-guide.md` and `playtester-journal.md` in the templates: a guide is written from play, so a new game has none
+   and playtests blind. Copy both once blind runs have shown what a player comes to know.
 4. **Art and plans.** Create `docs/art/catalogue.md` with a title, and `docs/plans/`. `templates/plan-file.md` is the
    pattern for a plan.
 5. **CLAUDE.md.** Write it from `templates/CLAUDE.md`, now, so roles have it from their first run. Later stages fill it.
@@ -92,7 +94,7 @@ worked. Then call the test command from the project's test script. For another e
 `templates/process/README.md` lists them all, and each template's first lines say when to use it and which genres can
 skip it. Always keep the index, `art-style.md`, `teaching-and-text.md` and `sound-design.md`. Keep the rest by what the
 core loop needs: a puzzle game needs `puzzle-design.md`, a run-based game needs `procgen-design.md`, and so on. Delete the
-others, with their rows in the index. Keep `telemetry.md` when the game has an economy or a difficulty curve to tune, and copy `${CLAUDE_PLUGIN_ROOT}/scripts/telemetry-summary.py` to the project's `scripts/` with it. Fill each `<fill: ...>` you can, and leave the others as open questions.
+others, with their rows in the index. Keep `playtest-ledger.md` when the game will be playtested more than once. Keep `telemetry.md` when the game has an economy or a difficulty curve to tune, and copy `${CLAUDE_PLUGIN_ROOT}/scripts/telemetry-summary.py` to the project's `scripts/` with it. Fill each `<fill: ...>` you can, and leave the others as open questions.
 
 ## Stage 10: the team
 

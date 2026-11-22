@@ -86,6 +86,19 @@ with tempfile.TemporaryDirectory() as tmp:
     expect("upgrade-diff flags a new file", "scripts/check-team.py" in out and "docs/design/tech.md" not in out, out)
     expect("upgrade-diff flags a missing heading", "docs/process/README.md: ## 1. Which method for what" in out, out)
 
+    # upgrade-diff: a project copy of a role, in step and then stale
+    role = (plugin / "agents/playtester.md").read_text()
+    head = "---\nname: engine-playtester\ndescription: plays through the game's own tools\ntools: Bash\n---"
+    (game / ".claude/agents").mkdir(parents=True)
+    copy = game / ".claude/agents/engine-playtester.md"
+    copy.write_text(head + role.split("---", 2)[2])
+    (game / ".claude/agents/pathfinder.md").write_text("---\nname: pathfinder\n---\nNot a copy of any role.\n")
+    code, out = run(game, "upgrade-diff.py")
+    expect("upgrade-diff passes a copy in step", "Project copies of a role that differ from the plugin's (0)" in out, out)
+    copy.write_text(head + "\nAn older body.\n")
+    code, out = run(game, "upgrade-diff.py")
+    expect("upgrade-diff flags a stale copy", ".claude/agents/engine-playtester.md: its body differs" in out and "pathfinder" not in out, out)
+
 if failures:
     sys.exit("test-scripts:\n  " + "\n  ".join(failures))
 print("test-scripts: design-status, close-task, decide and upgrade-diff pass")

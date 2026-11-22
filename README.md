@@ -24,7 +24,8 @@ at kickstart and belong to it from then on.
 - `choose-art-style` picks a style and tool by making the same test asset in each and judging it on the real screen.
 - `choose-models` recommends a model for each role, and records the owner's choice. `kickstart` and `migrate` run it.
 - `plan-phase` plans the next phase, writes its plan file and cuts tasks. It checks the plan against the phase's exit.
-- `playtest` runs one blind playtest from build to verdict: brief the tester, sort findings, fix the critical ones.
+- `playtest` runs a playtest from build to verdict: pick the tester's profile, brief it, sort findings, fix the critical
+  ones.
 - `close` closes a task: a script checks the branch against the design, then the session marks items Built and runs the
   reviewers.
 - `decide` records an owner's ruling in `decisions.md` and relabels what it settles.
@@ -37,8 +38,10 @@ at kickstart and belong to it from then on.
   reviewing a design, is imported once, and is then frozen.
 - A staged method per kind of design work, each with its gates and proofs.
 - Proved, not hoped: bots and solvers check content before a person plays it.
-- A blind playtester that knows only what's on the screen. Critical findings are fixed in the same task, and the rest are
-  ranked as optional work for the owner to pick.
+- One playtester, three profiles, decided by what its brief holds: blind (the controls sheet only), practiced (plus the
+  game's player's guide, about ten sessions in) and regular (plus its own journal, which it rewrites each run). It's
+  never told what changed. A verdict that gates a merge rests on three runs and is written as a count. Critical findings
+  are fixed in the same task, and the rest are ranked as optional work for the owner to pick.
 
 ## Install
 
@@ -92,15 +95,16 @@ claude plugin validate .
 
 ## Evals
 
-`evals/` holds three behaviour cases: the kickstart offers the small-game path, an existing game is sent to `migrate`,
-and a role stops when the team docs are missing. Each is scored with and without the plugin, so a pass means the plugin
+`evals/` holds behaviour cases, one folder each: the kickstart offers the small-game path, an existing game is sent to
+`migrate`, a role stops when the team docs are missing, a practiced playtest brief never says what changed and its
+merge-gating verdict rests on three runs, and so on. Each is scored with and without the plugin, so a pass means the plugin
 caused it. They call the model, so they stay out of `check-plugin`: run them after changing a skill or an agent.
 
 ```bash
 claude plugin eval . --runs 2 -j 3 --no-publish --max-cost-usd 5
 ```
 
-One run of all three costs about $0.60. Add a case when a rule in a skill or agent keeps getting broken.
+The command above (two runs of every case, with and without the plugin) costs about $3. Add a case when a rule in a skill or agent keeps getting broken.
 
 ## License
 
