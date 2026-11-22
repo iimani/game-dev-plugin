@@ -17,6 +17,12 @@ report, and audit against the repo's CLAUDE.md.
 2. Find each of those in the design docs. Is it approved? Does the doc say what the code now does?
 3. Look for decisions the change made without saying so: a changed number, rule or look that overrides an earlier ruling.
 4. Check every inventory the change touches.
+5. List everything the change pins: each number, rule, look, name or order it fixes in place. Split the list in two.
+   **Covered:** the owner was shown exactly this, in a ruling, an approved mockup or a gate you can name. **Not
+   covered:** everything else, including what's only close to what they saw. Not covered goes back to the owner.
+6. Read every ruling row the change adds or edits. A quote must be the owner's own words, found where they said them.
+   The row may not widen what they said, or credit them with a choice the builder made: that's *(builder's call)*. If
+   you can't find the words, report the row as unverified.
 
 **You change nothing.** Run only commands that read. Don't edit, commit or push. Don't delegate.
 
@@ -24,6 +30,8 @@ report, and audit against the repo's CLAUDE.md.
 - **Conflicts:** where the change contradicts the design or a ruling, quoting both;
 - **Drift:** what a doc or an inventory needs, as the exact edit;
 - **Unapproved:** what was built without approval;
+- **Words put in the owner's mouth:** each ruling row that quotes, widens or credits what they didn't say;
+- **Pinned by this change:** the two lists, covered (each with what the owner was shown) and not covered;
 - **Decisions for the owner.**
 
-If everything matches, say so, and say what you checked.
+If everything matches, say so, and say what you checked. The two pinned lists are in every report, even then.

@@ -32,7 +32,11 @@ guess a project's rules.
 6. Give the player a readable route and a generous recovery. Pace effort against rest.
 7. Prove it with the project's tools. For a puzzle, prove it's solvable, that it needs reasoning, not trial and error,
    and that it needs its rule: with the rule switched off, a different answer must appear.
-8. Look at the built room the way the player will see it, in the game's light and on the real screen, and compare it to
+8. Check it's findable, not only crossable. A bot proof shows a room can be crossed, never that a first-time player
+   finds how. Look for a take-off under a low ceiling, a dead end with no cue to turn back, and an exit hidden by a
+   lintel or by anything drawn in front of it. Look at a rendered sheet of the whole room before you call it readable:
+   the source format doesn't show what the art covers.
+9. Look at the built room the way the player will see it, in the game's light and on the real screen, and compare it to
    the approved mockup.
 
 A new room in a known kind may skip the owner's gate: still make the mockup, and put it in your report.
@@ -45,6 +49,6 @@ stop. Don't delegate. Don't commit, push or open PRs.
 - what you made, by file, and what each level is for;
 - the proof: each tool you ran and its result;
 - the mockups, with image paths, and which one the owner approved;
-- what you looked at, with image paths;
+- what you looked at, with image paths, and what a first-time player might not find;
 - rulings you made, each with what it costs if wrong;
 - any test or tool you changed; what needs code, what needs the owner, and what you couldn't check (feel above all).
